@@ -1729,7 +1729,7 @@
 
           <div class="dk-video-shell">
             <video id="dk-video" controls preload="none" poster="1.jpg">
-              <source src="lv_0_20261122134135.mp4" type="video/mp4" />
+              <source src="lv-0-20261122134135_mRnLh31e.mp4" type="video/mp4" />
             </video>
             <div class="dk-video-bar">
               <span id="dk-video-lbl">Default file: <code
@@ -2127,10 +2127,10 @@
         if (n < 0 || n >= slides.length) return;
         const vid = document.getElementById("dk-video");
         if (vid && !vid.paused && n !== 8) vid.pause();
-        if (vid && n === 7 && vid.preload === "none") {
-          vid.preload = "auto";
-          vid.load();
-        }
+        // if (vid && n === 7 && vid.preload === "none") {
+        //   vid.preload = "auto";
+        //   vid.load();
+        // }
 
         idx = n;
         slides.forEach((s, i) => s.classList.toggle("active", i === idx));
