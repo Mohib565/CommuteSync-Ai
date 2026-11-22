@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -9,7 +10,8 @@
   <!-- 1. PRESENTATION DECK CSS (Scoped strictly to #cvi-deck-root)          -->
   <!-- ===================================================================== -->
   <style>
-    html, body {
+    html,
+    body {
       margin: 0;
       padding: 0;
       height: 100%;
@@ -100,8 +102,15 @@
     }
 
     @keyframes dkSlideIn {
-      from { opacity: 0; transform: translateY(6px); }
-      to { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(6px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     #cvi-deck-root .dk-wrap {
@@ -198,12 +207,20 @@
     }
 
     @media (max-width: 960px) {
-      #cvi-deck-root .dk-slide { padding: 22px 20px; }
-      #cvi-deck-root .dk-slide.is-proto { padding: 0; }
+      #cvi-deck-root .dk-slide {
+        padding: 22px 20px;
+      }
+
+      #cvi-deck-root .dk-slide.is-proto {
+        padding: 0;
+      }
+
       #cvi-deck-root .dk-2col,
       #cvi-deck-root .dk-2eq,
       #cvi-deck-root .dk-3col,
-      #cvi-deck-root .dk-5col { grid-template-columns: 1fr; }
+      #cvi-deck-root .dk-5col {
+        grid-template-columns: 1fr;
+      }
     }
 
     /* Crisp White Editorial Cards */
@@ -378,7 +395,9 @@
       font-weight: 800;
     }
 
-    #cvi-deck-root table.dk-table tr:last-child td { border-bottom: none; }
+    #cvi-deck-root table.dk-table tr:last-child td {
+      border-bottom: none;
+    }
 
     #cvi-deck-root table.dk-table tr.us-row {
       background: var(--teal-soft);
@@ -454,7 +473,9 @@
       z-index: 2;
     }
 
-    #cvi-deck-root .dk-img img.missing { display: none; }
+    #cvi-deck-root .dk-img img.missing {
+      display: none;
+    }
 
     #cvi-deck-root .dk-img-ph {
       z-index: 1;
@@ -577,7 +598,12 @@
       color: #FFFFFF;
     }
 
-    #cvi-deck-root .dk-dots { display: flex; gap: 5px; flex-wrap: wrap; }
+    #cvi-deck-root .dk-dots {
+      display: flex;
+      gap: 5px;
+      flex-wrap: wrap;
+    }
+
     #cvi-deck-root .dk-dot {
       width: 26px;
       height: 26px;
@@ -589,6 +615,7 @@
       font-weight: 700;
       cursor: pointer;
     }
+
     #cvi-deck-root .dk-dot.active {
       background: #5EEAD4;
       border-color: #5EEAD4;
@@ -597,16 +624,36 @@
 
     /* Clean Print / PDF Export (Slides 1–9 Landscape, Prototype Excluded) */
     @media print {
-      html, body {
+
+      html,
+      body {
         overflow: visible !important;
         height: auto !important;
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
       }
-      @page { size: landscape; margin: 0; }
-      #cvi-deck-root { height: auto !important; width: auto !important; display: block !important; }
-      #cvi-deck-root .dk-progress, #cvi-deck-root .dk-footer { display: none !important; }
-      #cvi-deck-root .dk-stage { position: static !important; overflow: visible !important; }
+
+      @page {
+        size: landscape;
+        margin: 0;
+      }
+
+      #cvi-deck-root {
+        height: auto !important;
+        width: auto !important;
+        display: block !important;
+      }
+
+      #cvi-deck-root .dk-progress,
+      #cvi-deck-root .dk-footer {
+        display: none !important;
+      }
+
+      #cvi-deck-root .dk-stage {
+        position: static !important;
+        overflow: visible !important;
+      }
+
       #cvi-deck-root .dk-slide {
         position: static !important;
         display: flex !important;
@@ -615,7 +662,10 @@
         break-after: page;
         overflow: visible !important;
       }
-      #cvi-deck-root .dk-slide.is-proto { display: none !important; }
+
+      #cvi-deck-root .dk-slide.is-proto {
+        display: none !important;
+      }
     }
   </style>
 
@@ -1265,11 +1315,14 @@
     }
   </style>
 </head>
+
 <body>
 
   <div id="cvi-deck-root">
     <!-- Top Progress Bar -->
-    <div class="dk-progress"><div class="dk-progress-bar" id="dk-bar"></div></div>
+    <div class="dk-progress">
+      <div class="dk-progress-bar" id="dk-bar"></div>
+    </div>
 
     <!-- All 10 Slides Viewport -->
     <div class="dk-stage">
@@ -1287,7 +1340,8 @@
                 Ordinary whiteboards. Instant, verified classroom visuals.
               </p>
               <p class="dk-lead" style="font-size:15.5px; margin-bottom:28px;">
-                We are not asking schools to rebuild their classrooms — we are helping existing classrooms become intelligent.
+                We are not asking schools to rebuild their classrooms — we are helping existing classrooms become
+                intelligent.
               </p>
               <div style="border-left:3px solid #5EEAD4; padding-left:14px; font-size:14px; color:#B8C4D4;">
                 <strong style="color:#F7F6F2;">Syed Mohib Ali Shah &amp; Hasnain Ali</strong><br>
@@ -1296,7 +1350,8 @@
             </div>
 
             <div class="dk-img" style="min-height:380px;">
-              <img decoding="async" src="1.jpg" alt="CommuteSync AI Classroom Hero" onerror="this.classList.add('missing')" />
+              <img decoding="async" src="1.jpg" alt="CommuteSync AI Classroom Hero"
+                onerror="this.classList.add('missing')" />
               <div class="dk-img-ph">
                 <strong>Scene 1 — Hero Classroom Photo</strong><br>
                 Teacher writing on ordinary board + live visual projected beside it
@@ -1329,14 +1384,16 @@
                   <div class="dk-num-badge">02</div>
                   <div>
                     <strong>Daily Preparation Friction for Teachers</strong>
-                    <span>Finding verified animations mid-lecture breaks teaching flow; existing projectors remain underused.</span>
+                    <span>Finding verified animations mid-lecture breaks teaching flow; existing projectors remain
+                      underused.</span>
                   </div>
                 </div>
                 <div class="dk-point">
                   <div class="dk-num-badge">03</div>
                   <div>
                     <strong>High-Cost Smartboards Do Not Scale Locally</strong>
-                    <span>Replacing physical boards is unaffordable — Pakistan needs an upgrade layer for existing rooms.</span>
+                    <span>Replacing physical boards is unaffordable — Pakistan needs an upgrade layer for existing
+                      rooms.</span>
                   </div>
                 </div>
               </div>
@@ -1361,7 +1418,8 @@
             </div>
 
             <div class="dk-img" style="min-height:400px;">
-              <img decoding="async" src="2.jpg" alt="Traditional whiteboard classroom" onerror="this.classList.add('missing')" />
+              <img decoding="async" src="2.jpg" alt="Traditional whiteboard classroom"
+                onerror="this.classList.add('missing')" />
               <div class="dk-img-ph">
                 <strong>Scene 2 — Traditional Classroom</strong><br>
                 Teacher sketching complex diagram on ordinary whiteboard while students struggle to visualize
@@ -1371,7 +1429,9 @@
           </div>
 
           <div class="dk-footnote">
-            Sources: Pakistan Economic Survey 2023–24 (60.6% Literacy) • Pakistan Institute of Education 2023–24 &amp; PBS HIES 2024–25 (26.2M / 28% Out-of-School) • Ministry of IT &amp; Telecom National AI Policy 2025 (1M AI Learners).
+            Sources: Pakistan Economic Survey 2023–24 (60.6% Literacy) • Pakistan Institute of Education 2023–24 &amp;
+            PBS HIES 2024–25 (26.2M / 28% Out-of-School) • Ministry of IT &amp; Telecom National AI Policy 2025 (1M AI
+            Learners).
           </div>
         </div>
       </section>
@@ -1384,7 +1444,8 @@
           <span class="dk-eyebrow">02 / Market Landscape</span>
           <h2 class="dk-h2">Existing Tools Don't Fit Physical Whiteboards</h2>
           <p class="dk-lead">
-            Current options serve personal student screens or require expensive hardware replacement — leaving ordinary classrooms underserved.
+            Current options serve personal student screens or require expensive hardware replacement — leaving ordinary
+            classrooms underserved.
           </p>
 
           <div class="dk-table-wrap">
@@ -1451,7 +1512,8 @@
             </div>
 
             <div class="dk-img" style="min-height:385px;">
-              <img decoding="async" src="3.jpg" alt="Split whiteboard solution" onerror="this.classList.add('missing')" />
+              <img decoding="async" src="3.jpg" alt="Split whiteboard solution"
+                onerror="this.classList.add('missing')" />
               <div class="dk-img-ph">
                 <strong>Scene 3 — Split-Board Solution</strong><br>
                 Left: Teacher's marker notes • Right: Projected verified Heart/Physics animation
@@ -1499,7 +1561,8 @@
           </div>
 
           <div class="dk-img short">
-            <img decoding="async" src="From Whiteboard to Visual Learning.jpg" alt="Physical classroom workflow setup" onerror="this.classList.add('missing')" />
+            <img decoding="async" src="From Whiteboard to Visual Learning.jpg" alt="Physical classroom workflow setup"
+              onerror="this.classList.add('missing')" />
             <div class="dk-img-ph" style="max-width:520px;">
               <strong>Scene 4 — Classroom Setup Diagram</strong><br>
               Whiteboard → USB Webcam (Input) → Laptop Software → Existing Projector / TV (Output)
@@ -1538,13 +1601,15 @@
                   <li>HDMI &amp; USB connectivity cables</li>
                 </ul>
                 <div class="dk-callout amber" style="margin-top:8px; padding:8px 12px; font-size:12.5px;">
-                  <strong>Clear Scope:</strong> Laptop is <u>not</u> provided in the kit. A projector or TV is required for classroom display.
+                  <strong>Clear Scope:</strong> Laptop is <u>not</u> provided in the kit. A projector or TV is required
+                  for classroom display.
                 </div>
               </div>
             </div>
 
             <div class="dk-img" style="min-height:385px;">
-              <img decoding="async" src="Modern Tech Kit on Wooden Table.jpg" alt="Optional classroom hardware kit" onerror="this.classList.add('missing')" />
+              <img decoding="async" src="Modern Tech Kit on Wooden Table.jpg" alt="Optional classroom hardware kit"
+                onerror="this.classList.add('missing')" />
               <div class="dk-img-ph">
                 <strong>Scene 5 — Optional Hardware Kit</strong><br>
                 Portable projector + USB webcam + cables neatly arranged on desk (no laptop)
@@ -1597,7 +1662,8 @@
           </div>
 
           <div class="dk-callout">
-            <strong>Validation-First Pricing:</strong> Final per-classroom pricing tiers and procurement budgets will be validated directly during our Phase 1 university pilot.
+            <strong>Validation-First Pricing:</strong> Final per-classroom pricing tiers and procurement budgets will be
+            validated directly during our Phase 1 university pilot.
           </div>
         </div>
       </section>
@@ -1614,7 +1680,8 @@
             <div class="dk-card featured">
               <span class="dk-pill">Phase 01 — Pilot</span>
               <h3>University Pilot (Haripur)</h3>
-              <p>Test in 2–3 projector classrooms to measure handwriting accuracy, lighting handling, latency, and teacher feedback.</p>
+              <p>Test in 2–3 projector classrooms to measure handwriting accuracy, lighting handling, latency, and
+                teacher feedback.</p>
             </div>
             <div class="dk-card">
               <span class="dk-pill">Phase 02 — Regional</span>
@@ -1632,8 +1699,10 @@
             <div class="dk-card">
               <h3>Current MVP vs. Future Roadmap</h3>
               <ul>
-                <li><strong>MVP Now:</strong> 5 verified STEM visuals, ROI capture, syllabus filter, offline playback.</li>
-                <li><strong>Roadmap:</strong> Full curriculum mapping, math notation parsing, interactive 3D &amp; local offline AI.</li>
+                <li><strong>MVP Now:</strong> 5 verified STEM visuals, ROI capture, syllabus filter, offline playback.
+                </li>
+                <li><strong>Roadmap:</strong> Full curriculum mapping, math notation parsing, interactive 3D &amp; local
+                  offline AI.</li>
               </ul>
             </div>
             <div class="dk-card">
@@ -1663,9 +1732,11 @@
               <source src="lv_0_20261122134135.mp4" type="video/mp4" />
             </video>
             <div class="dk-video-bar">
-              <span id="dk-video-lbl">Default file: <code style="color:#5EEAD4;">video/commutesync-vision.mp4</code></span>
+              <span id="dk-video-lbl">Default file: <code
+                  style="color:#5EEAD4;">video/commutesync-vision.mp4</code></span>
               <div>
-                <input type="file" id="dk-vid-file" accept="video/*" style="display:none;" onchange="CVIDeck.loadVideo(event)" />
+                <input type="file" id="dk-vid-file" accept="video/*" style="display:none;"
+                  onchange="CVIDeck.loadVideo(event)" />
                 <button class="dk-btn dk-btn-primary" onclick="document.getElementById('dk-vid-file').click()">
                   Load Local .mp4
                 </button>
@@ -1691,7 +1762,8 @@
                   <span class="cvi-mvp-badge">MVP Prototype • 5 Curated Topics</span>
                 </h1>
                 <p class="cvi-subtitle">
-                  "We are not asking schools to rebuild their classrooms. We are helping existing classrooms become more intelligent."
+                  "We are not asking schools to rebuild their classrooms. We are helping existing classrooms become more
+                  intelligent."
                 </p>
               </div>
             </div>
@@ -1759,10 +1831,12 @@
               </div>
               <div class="cvi-field">
                 <label for="cvi-manual-ocr">Detected / Simulated Board Text</label>
-                <input type="text" id="cvi-manual-ocr" placeholder='e.g. "Human Heart - Blood Circulation"' value="Human Heart — Blood Circulation" />
+                <input type="text" id="cvi-manual-ocr" placeholder='e.g. "Human Heart - Blood Circulation"'
+                  value="Human Heart — Blood Circulation" />
               </div>
               <div>
-                <button class="cvi-btn cvi-btn-primary" style="height:34px;" onclick="CVIPrototype.runPipelineFromText()">
+                <button class="cvi-btn cvi-btn-primary" style="height:34px;"
+                  onclick="CVIPrototype.runPipelineFromText()">
                   🔍 Scan &amp; Match Board
                 </button>
               </div>
@@ -1771,26 +1845,34 @@
             <!-- Demo Presets Strip -->
             <div class="cvi-demo-strip">
               <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
-                <strong style="font-size:12.5px;">🎬 Live Classroom Demo Scenarios (1 Click Writes on Whiteboard &amp; Triggers Pipeline):</strong>
-                <span style="font-size:11.5px; color:var(--muted);">Click any scenario or draw manually on the whiteboard below</span>
+                <strong style="font-size:12.5px;">🎬 Live Classroom Demo Scenarios (1 Click Writes on Whiteboard &amp;
+                  Triggers Pipeline):</strong>
+                <span style="font-size:11.5px; color:var(--muted);">Click any scenario or draw manually on the
+                  whiteboard below</span>
               </div>
               <div class="cvi-demo-row">
-                <button class="cvi-topic-chip" onclick="CVIPrototype.simulateTeacher('HSSC','Biology','Human Heart — Blood Circulation')">
+                <button class="cvi-topic-chip"
+                  onclick="CVIPrototype.simulateTeacher('HSSC','Biology','Human Heart — Blood Circulation')">
                   🫀 Biology: Human Heart Circulation
                 </button>
-                <button class="cvi-topic-chip" onclick="CVIPrototype.simulateTeacher('HSSC','Physics','Electromagnetic Induction (Faraday Law)')">
+                <button class="cvi-topic-chip"
+                  onclick="CVIPrototype.simulateTeacher('HSSC','Physics','Electromagnetic Induction (Faraday Law)')">
                   🧲 Physics: Electromagnetic Induction
                 </button>
-                <button class="cvi-topic-chip" onclick="CVIPrototype.simulateTeacher('University','Computer Science','Shortest Path — Graph Traversal (BFS/Dijkstra)')">
+                <button class="cvi-topic-chip"
+                  onclick="CVIPrototype.simulateTeacher('University','Computer Science','Shortest Path — Graph Traversal (BFS/Dijkstra)')">
                   🕸️ CS: Shortest Path Algorithm
                 </button>
-                <button class="cvi-topic-chip" onclick="CVIPrototype.simulateTeacher('Matric','Chemistry','Covalent Bonding — H2O Molecule')">
+                <button class="cvi-topic-chip"
+                  onclick="CVIPrototype.simulateTeacher('Matric','Chemistry','Covalent Bonding — H2O Molecule')">
                   ⚛️ Chemistry: H₂O Covalent Bonding
                 </button>
-                <button class="cvi-topic-chip" onclick="CVIPrototype.simulateTeacher('University','Mathematics','3D Vector Cross Product (a x b)')">
+                <button class="cvi-topic-chip"
+                  onclick="CVIPrototype.simulateTeacher('University','Mathematics','3D Vector Cross Product (a x b)')">
                   📐 Math: 3D Vector Cross Product
                 </button>
-                <button class="cvi-topic-chip warn-chip" onclick="CVIPrototype.simulateTeacher('Mathematics','Mathematics','Induction')">
+                <button class="cvi-topic-chip warn-chip"
+                  onclick="CVIPrototype.simulateTeacher('Mathematics','Mathematics','Induction')">
                   ⚠️ Context Test: "Induction" in Math (Blocks Wrong Physics Visual!)
                 </button>
               </div>
@@ -1800,7 +1882,8 @@
             <div class="cvi-stage-wrapper">
               <div class="cvi-stage-header">
                 <div>
-                  <strong style="color:var(--white);">Realistic Classroom Split-Board Projection</strong> — Camera observes ONLY the Left Writing Zone (ROI calibrated to avoid reading projected visuals).
+                  <strong style="color:var(--white);">Realistic Classroom Split-Board Projection</strong> — Camera
+                  observes ONLY the Left Writing Zone (ROI calibrated to avoid reading projected visuals).
                 </div>
                 <div style="display:flex; gap:8px; flex-wrap:wrap;">
                   <button class="cvi-btn active" id="cvi-src-sim" onclick="CVIPrototype.setInputSource('sim')">
@@ -1826,9 +1909,11 @@
                   <div id="cvi-webcam-wrap">
                     <video id="cvi-webcam-video" autoplay playsinline muted></video>
                     <canvas id="cvi-capture-buffer" width="620" height="335" style="display:none;"></canvas>
-                    <div style="position:absolute; bottom:10px; left:10px; right:10px; display:flex; justify-content:space-between; align-items:center; background:rgba(11,22,38,0.85); padding:8px 10px; border-radius:8px; font-size:11.5px; color:#F4F7FA;">
+                    <div
+                      style="position:absolute; bottom:10px; left:10px; right:10px; display:flex; justify-content:space-between; align-items:center; background:rgba(11,22,38,0.85); padding:8px 10px; border-radius:8px; font-size:11.5px; color:#F4F7FA;">
                       <span id="cvi-cam-msg">Point webcam at whiteboard inside dashed Cyan ROI box.</span>
-                      <button class="cvi-btn cvi-btn-primary" style="padding:5px 10px;" onclick="CVIPrototype.captureWebcamFrame()">
+                      <button class="cvi-btn cvi-btn-primary" style="padding:5px 10px;"
+                        onclick="CVIPrototype.captureWebcamFrame()">
                         📸 Capture &amp; Analyze
                       </button>
                     </div>
@@ -1837,13 +1922,18 @@
                   <div class="cvi-wb-toolbar">
                     <div class="cvi-marker-group">
                       <span style="font-size:11px; font-weight:800; color:#334155;">Markers:</span>
-                      <button class="cvi-swatch active" style="background:#0F172A;" title="Black Marker" onclick="CVIPrototype.setMarker('#0F172A', 3, this)"></button>
-                      <button class="cvi-swatch" style="background:#1D4ED8;" title="Blue Marker" onclick="CVIPrototype.setMarker('#1D4ED8', 3, this)"></button>
-                      <button class="cvi-swatch" style="background:#DC2626;" title="Red Marker" onclick="CVIPrototype.setMarker('#DC2626', 3, this)"></button>
-                      <button class="cvi-wb-mini-btn" onclick="CVIPrototype.setMarker('#FAFBFD', 18, null)">🧽 Eraser</button>
+                      <button class="cvi-swatch active" style="background:#0F172A;" title="Black Marker"
+                        onclick="CVIPrototype.setMarker('#0F172A', 3, this)"></button>
+                      <button class="cvi-swatch" style="background:#1D4ED8;" title="Blue Marker"
+                        onclick="CVIPrototype.setMarker('#1D4ED8', 3, this)"></button>
+                      <button class="cvi-swatch" style="background:#DC2626;" title="Red Marker"
+                        onclick="CVIPrototype.setMarker('#DC2626', 3, this)"></button>
+                      <button class="cvi-wb-mini-btn" onclick="CVIPrototype.setMarker('#FAFBFD', 18, null)">🧽
+                        Eraser</button>
                       <button class="cvi-wb-mini-btn" onclick="CVIPrototype.clearBoard()">🗑️ Clear Board</button>
                     </div>
-                    <button class="cvi-wb-mini-btn" style="background:#0B1626; color:#36C9D8; border-color:#0B1626;" onclick="CVIPrototype.scanDrawnBoard()">
+                    <button class="cvi-wb-mini-btn" style="background:#0B1626; color:#36C9D8; border-color:#0B1626;"
+                      onclick="CVIPrototype.scanDrawnBoard()">
                       📷 Detect Writing
                     </button>
                   </div>
@@ -1862,16 +1952,20 @@
                       <div style="font-size:32px; margin-bottom:8px;">📽️</div>
                       <strong style="color:var(--white); font-size:14px;">Projector Standby (Blank Safe)</strong>
                       <p style="font-size:12px; max-width:320px; margin-top:6px;">
-                        Write a topic on the physical whiteboard or pick a demo scenario. Curated visuals only appear here — never covering the teacher's handwriting.
+                        Write a topic on the physical whiteboard or pick a demo scenario. Curated visuals only appear
+                        here — never covering the teacher's handwriting.
                       </p>
                     </div>
                   </div>
 
                   <div class="cvi-proj-controls">
                     <div style="display:flex; gap:6px; flex-wrap:wrap;">
-                      <button class="cvi-btn" id="cvi-btn-playpause" onclick="CVIPrototype.togglePause()">⏸ Pause</button>
-                      <button class="cvi-btn" id="cvi-btn-speed" onclick="CVIPrototype.cycleSpeed()">⚡ Speed: 1.0x</button>
-                      <button class="cvi-btn cvi-btn-danger" onclick="CVIPrototype.dismissVisual()">✕ Dismiss / Blank</button>
+                      <button class="cvi-btn" id="cvi-btn-playpause" onclick="CVIPrototype.togglePause()">⏸
+                        Pause</button>
+                      <button class="cvi-btn" id="cvi-btn-speed" onclick="CVIPrototype.cycleSpeed()">⚡ Speed:
+                        1.0x</button>
+                      <button class="cvi-btn cvi-btn-danger" onclick="CVIPrototype.dismissVisual()">✕ Dismiss /
+                        Blank</button>
                     </div>
                     <span id="cvi-verified-tag" style="font-size:11px; color:#86EFAC; font-weight:700;">
                       ✔ Verified Curated Library (No Random AI Graphics)
@@ -1916,10 +2010,12 @@
                   <div class="cvi-approval-box" id="cvi-approval-box">
                     <div>
                       <strong style="color:var(--cyan);">Teacher-in-the-Loop Control Ready:</strong>
-                      <span id="cvi-approval-text">Trigger any topic above to see curriculum-aware matching and teacher confirmation.</span>
+                      <span id="cvi-approval-text">Trigger any topic above to see curriculum-aware matching and teacher
+                        confirmation.</span>
                     </div>
                     <div id="cvi-approval-actions" style="display:none; gap:6px;">
-                      <button class="cvi-btn cvi-btn-ok" onclick="CVIPrototype.approvePending()">✔ Project Visual</button>
+                      <button class="cvi-btn cvi-btn-ok" onclick="CVIPrototype.approvePending()">✔ Project
+                        Visual</button>
                       <button class="cvi-btn cvi-btn-danger" onclick="CVIPrototype.rejectPending()">✕ Ignore</button>
                     </div>
                   </div>
@@ -1929,14 +2025,19 @@
               <div class="cvi-panel">
                 <div class="cvi-panel-title">
                   <span>📋 System Log &amp; Honest MVP Scope</span>
-                  <button class="cvi-btn" style="padding:3px 8px; font-size:11px;" onclick="CVIPrototype.clearLogs()">Clear</button>
+                  <button class="cvi-btn" style="padding:3px 8px; font-size:11px;"
+                    onclick="CVIPrototype.clearLogs()">Clear</button>
                 </div>
                 <ul class="cvi-log-list" id="cvi-log-list">
                   <li class="cvi-log-item">[INIT] Preloaded 5 verified curated visuals for Offline MVP demo.</li>
-                  <li class="cvi-log-item">[ROI] Camera observation locked to Left Writing Zone (Projector zone excluded).</li>
+                  <li class="cvi-log-item">[ROI] Camera observation locked to Left Writing Zone (Projector zone
+                    excluded).</li>
                 </ul>
                 <div class="cvi-roadmap-note">
-                  <strong style="color:var(--white);">MVP vs. Future Roadmap:</strong> Current MVP validates the core workflow across 5 curated topics with offline playback &amp; optional online OCR. Full board syllabus coverage, complex handwritten math LaTeX parsing, and interactive 3D models are <em>future development phases</em>.
+                  <strong style="color:var(--white);">MVP vs. Future Roadmap:</strong> Current MVP validates the core
+                  workflow across 5 curated topics with offline playback &amp; optional online OCR. Full board syllabus
+                  coverage, complex handwritten math LaTeX parsing, and interactive 3D models are <em>future development
+                    phases</em>.
                 </div>
               </div>
             </div>
@@ -1950,8 +2051,11 @@
                 <button class="cvi-btn" onclick="CVIPrototype.closeModal()">✕</button>
               </div>
               <p style="font-size:12.5px; color:var(--muted); margin-bottom:12px;">
-                <strong>Offline Mode (Default):</strong> Curated visual playback and local keyword/curriculum matching work 100% offline with zero API calls.<br><br>
-                <strong>Online Cloud OCR (Optional):</strong> If you switch to <em>Live Webcam Input</em> and want real handwriting extraction from a physical whiteboard or sheet of paper, paste a Gemini API key below (stays in local browser memory only).
+                <strong>Offline Mode (Default):</strong> Curated visual playback and local keyword/curriculum matching
+                work 100% offline with zero API calls.<br><br>
+                <strong>Online Cloud OCR (Optional):</strong> If you switch to <em>Live Webcam Input</em> and want real
+                handwriting extraction from a physical whiteboard or sheet of paper, paste a Gemini API key below (stays
+                in local browser memory only).
               </p>
               <div class="cvi-field" style="margin-bottom:14px;">
                 <label for="cvi-api-key">Gemini Vision API Key (Optional)</label>
@@ -1959,7 +2063,8 @@
               </div>
               <div style="display:flex; justify-content:flex-end; gap:8px;">
                 <button class="cvi-btn" onclick="CVIPrototype.saveApiKey(true)">Clear Key</button>
-                <button class="cvi-btn cvi-btn-primary" onclick="CVIPrototype.saveApiKey(false)">Save &amp; Enable Online OCR</button>
+                <button class="cvi-btn cvi-btn-primary" onclick="CVIPrototype.saveApiKey(false)">Save &amp; Enable
+                  Online OCR</button>
               </div>
             </div>
           </div>
@@ -2022,6 +2127,10 @@
         if (n < 0 || n >= slides.length) return;
         const vid = document.getElementById("dk-video");
         if (vid && !vid.paused && n !== 8) vid.pause();
+        if (vid && n === 7 && vid.preload === "none") {
+          vid.preload = "auto";
+          vid.load();
+        }
 
         idx = n;
         slides.forEach((s, i) => s.classList.toggle("active", i === idx));
@@ -2560,8 +2669,8 @@
         ctx.fillStyle = "#9FB3C8";
         ctx.fillText(
           velocity > 0.1 ? "Motion: Into Coil → Current (+)" :
-          velocity < -0.1 ? "Motion: Out of Coil → Current (-)" :
-          "Magnet Momentarily Still → EMF = 0",
+            velocity < -0.1 ? "Motion: Out of Coil → Current (-)" :
+              "Magnet Momentarily Still → EMF = 0",
           18, 275
         );
       }
@@ -2572,10 +2681,10 @@
         ctx.fillText("SHORTEST PATH TRAVERSAL • STEP-BY-STEP RELAXATION", 18, 22);
 
         const nodes = [
-          { id: "A", x: 72,  y: 145, dist: 0 },
-          { id: "B", x: 185, y: 78,  dist: 2 },
+          { id: "A", x: 72, y: 145, dist: 0 },
+          { id: "B", x: 185, y: 78, dist: 2 },
           { id: "C", x: 195, y: 215, dist: 5 },
-          { id: "D", x: 315, y: 72,  dist: 6 },
+          { id: "D", x: 315, y: 72, dist: 6 },
           { id: "E", x: 325, y: 158, dist: 4 },
           { id: "F", x: 345, y: 235, dist: 9 },
           { id: "G", x: 465, y: 145, dist: 7 }
@@ -3020,4 +3129,5 @@
     })(window);
   </script>
 </body>
+
 </html>
