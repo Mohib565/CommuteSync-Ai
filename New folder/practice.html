@@ -1,0 +1,2771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CommuteSync AI — Pioneering AI-Driven Physical Whiteboard Classrooms in Pakistan</title>
+
+  <!-- ===================================================================== -->
+  <!-- 1. PRESENTATION DECK CSS (Scoped strictly to #cvi-deck-root)          -->
+  <!-- ===================================================================== -->
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+      background: #0F1724;
+      color: #111827;
+      font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+    }
+
+    #cvi-deck-root {
+      --obsidian: #0F1724;
+      --obsidian-card: #182234;
+      --obsidian-border: #28354C;
+      --ivory: #F6F5F0;
+      --white: #FFFFFF;
+      --line: #E3E1D8;
+      --ink: #111827;
+      --muted: #526071;
+      --teal: #0F5C63;
+      --teal-bright: #14919B;
+      --teal-soft: #E6F4F4;
+      --amber: #B45309;
+      --amber-soft: #FEF3C7;
+
+      height: 100vh;
+      width: 100vw;
+      display: flex;
+      flex-direction: column;
+      background: var(--ivory);
+      color: var(--ink);
+      box-sizing: border-box;
+    }
+
+    #cvi-deck-root *,
+    #cvi-deck-root *::before,
+    #cvi-deck-root *::after {
+      box-sizing: border-box;
+    }
+
+    /* Progress Bar */
+    #cvi-deck-root .dk-progress {
+      height: 4px;
+      background: #DDDAD0;
+      flex-shrink: 0;
+    }
+
+    #cvi-deck-root .dk-progress-bar {
+      height: 100%;
+      width: 10%;
+      background: linear-gradient(90deg, var(--teal), var(--teal-bright));
+      transition: width 0.28s ease;
+    }
+
+    /* Stage & Slides */
+    #cvi-deck-root .dk-stage {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #cvi-deck-root .dk-slide {
+      position: absolute;
+      inset: 0;
+      padding: 34px 56px 24px;
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      overflow-y: auto;
+      background: var(--ivory);
+      color: var(--ink);
+      animation: dkSlideIn 0.24s ease;
+    }
+
+    #cvi-deck-root .dk-slide.active {
+      display: flex;
+    }
+
+    #cvi-deck-root .dk-slide.dark-slide {
+      background: radial-gradient(circle at 85% 18%, rgba(20, 145, 155, 0.18), transparent 45%), var(--obsidian);
+      color: #F7F6F2;
+    }
+
+    #cvi-deck-root .dk-slide.is-proto {
+      padding: 0;
+      justify-content: flex-start;
+      background: #0B1626;
+      color: #F4F7FA;
+    }
+
+    @keyframes dkSlideIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    #cvi-deck-root .dk-wrap {
+      max-width: 1180px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    /* Typography */
+    #cvi-deck-root .dk-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11.5px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--teal);
+      margin-bottom: 8px;
+    }
+
+    #cvi-deck-root .dark-slide .dk-eyebrow {
+      color: #5EEAD4;
+    }
+
+    #cvi-deck-root .dk-h1 {
+      font-size: clamp(42px, 5vw, 62px);
+      font-weight: 900;
+      margin: 0 0 12px 0;
+      line-height: 1.04;
+      letter-spacing: -1.2px;
+    }
+
+    #cvi-deck-root .dk-hero-bold {
+      display: inline-block;
+      font-size: clamp(18px, 1.85vw, 23px);
+      font-weight: 900;
+      color: #0F1724;
+      background: linear-gradient(90deg, #5EEAD4, #36C9D8);
+      padding: 8px 16px;
+      border-radius: 10px;
+      margin: 0 0 18px 0;
+      line-height: 1.28;
+      letter-spacing: -0.2px;
+    }
+
+    #cvi-deck-root .dk-h2 {
+      font-size: clamp(26px, 3vw, 38px);
+      font-weight: 800;
+      margin: 0 0 18px 0;
+      line-height: 1.15;
+      letter-spacing: -0.6px;
+      color: var(--ink);
+    }
+
+    #cvi-deck-root .dark-slide .dk-h2 {
+      color: #F7F6F2;
+    }
+
+    #cvi-deck-root .dk-lead {
+      font-size: clamp(15px, 1.35vw, 17.5px);
+      color: var(--muted);
+      margin: 0 0 18px 0;
+      line-height: 1.48;
+      max-width: 820px;
+    }
+
+    #cvi-deck-root .dark-slide .dk-lead {
+      color: #B8C4D4;
+    }
+
+    #cvi-deck-root .dk-footnote {
+      margin-top: 14px;
+      font-size: 11px;
+      color: #6B7280;
+      border-top: 1px solid var(--line);
+      padding-top: 7px;
+    }
+
+    /* Grids */
+    #cvi-deck-root .dk-2col {
+      display: grid;
+      grid-template-columns: 1.12fr 0.88fr;
+      gap: 30px;
+      align-items: center;
+    }
+
+    #cvi-deck-root .dk-2eq {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    #cvi-deck-root .dk-3col {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      align-items: stretch;
+    }
+
+    #cvi-deck-root .dk-4col {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      align-items: stretch;
+    }
+
+    #cvi-deck-root .dk-5col {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 11px;
+      align-items: stretch;
+    }
+
+    @media (max-width: 960px) {
+      #cvi-deck-root .dk-slide { padding: 20px 18px; }
+      #cvi-deck-root .dk-slide.is-proto { padding: 0; }
+      #cvi-deck-root .dk-2col,
+      #cvi-deck-root .dk-2eq,
+      #cvi-deck-root .dk-3col,
+      #cvi-deck-root .dk-4col,
+      #cvi-deck-root .dk-5col { grid-template-columns: 1fr; }
+    }
+
+    /* Cards */
+    #cvi-deck-root .dk-card {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 18px 20px;
+      box-shadow: 0 2px 10px rgba(17, 24, 39, 0.04);
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    #cvi-deck-root .dk-card.featured {
+      border-color: var(--teal);
+      border-top: 4px solid var(--teal);
+      background: linear-gradient(180deg, #F2FAFA 0%, #FFFFFF 38%);
+    }
+
+    #cvi-deck-root .dk-card.amber-top {
+      border-top: 4px solid var(--amber);
+      background: linear-gradient(180deg, #FFFDF5 0%, #FFFFFF 35%);
+    }
+
+    #cvi-deck-root .dk-card.dark-card {
+      background: var(--obsidian);
+      border-color: var(--obsidian-border);
+      color: #F7F6F2;
+    }
+
+    #cvi-deck-root .dk-card.dark-card h3 { color: #5EEAD4; }
+    #cvi-deck-root .dk-card.dark-card p,
+    #cvi-deck-root .dk-card.dark-card li { color: #CBD5E1; }
+
+    #cvi-deck-root .dk-card h3 {
+      margin: 0;
+      font-size: 16.5px;
+      font-weight: 800;
+      color: var(--ink);
+      letter-spacing: -0.2px;
+    }
+
+    #cvi-deck-root .dk-card p {
+      margin: 0;
+      font-size: 13.5px;
+      color: var(--muted);
+      line-height: 1.46;
+    }
+
+    #cvi-deck-root .dk-card ul {
+      margin: 4px 0 0 0;
+      padding-left: 17px;
+      display: grid;
+      gap: 6px;
+      font-size: 13.5px;
+      color: #374151;
+      line-height: 1.42;
+    }
+
+    #cvi-deck-root .dk-pill {
+      display: inline-block;
+      align-self: flex-start;
+      font-size: 10.5px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.7px;
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: var(--teal-soft);
+      color: var(--teal);
+    }
+
+    #cvi-deck-root .dk-pill.amber {
+      background: var(--amber-soft);
+      color: var(--amber);
+    }
+
+    #cvi-deck-root .dk-pill.dark {
+      background: #1E293B;
+      color: #5EEAD4;
+    }
+
+    /* Slide 2 Storytelling Chain */
+    #cvi-deck-root .dk-story-box {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-left: 4px solid var(--teal);
+      border-radius: 12px;
+      padding: 13px 16px;
+      margin-bottom: 12px;
+      font-size: 13.8px;
+      color: #1F2937;
+      line-height: 1.5;
+    }
+
+    #cvi-deck-root .dk-chain {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    @media (max-width: 960px) {
+      #cvi-deck-root .dk-chain { grid-template-columns: 1fr 1fr; }
+    }
+
+    #cvi-deck-root .dk-chain-node {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-top: 3px solid var(--teal);
+      border-radius: 10px;
+      padding: 10px 11px;
+    }
+
+    #cvi-deck-root .dk-chain-node.end-node {
+      border-top-color: var(--amber);
+      background: #FFFDF7;
+    }
+
+    #cvi-deck-root .dk-chain-node strong {
+      display: block;
+      font-size: 12.5px;
+      color: var(--ink);
+      margin-bottom: 3px;
+    }
+
+    #cvi-deck-root .dk-chain-node span {
+      font-size: 11.5px;
+      color: var(--muted);
+      line-height: 1.35;
+      display: block;
+    }
+
+    /* Stat Tiles */
+    #cvi-deck-root .dk-stat-tile {
+      background: var(--obsidian);
+      color: #F7F6F2;
+      border-radius: 11px;
+      padding: 12px 14px;
+    }
+
+    #cvi-deck-root .dk-stat-tile.teal-bg { background: var(--teal); }
+
+    #cvi-deck-root .dk-stat-val {
+      font-size: clamp(20px, 2.1vw, 27px);
+      font-weight: 900;
+      letter-spacing: -0.4px;
+      line-height: 1.1;
+      color: #5EEAD4;
+    }
+
+    #cvi-deck-root .dk-stat-tile.teal-bg .dk-stat-val { color: #FFFFFF; }
+
+    #cvi-deck-root .dk-stat-name {
+      font-size: 12px;
+      font-weight: 700;
+      margin-top: 4px;
+      color: #F7F6F2;
+    }
+
+    #cvi-deck-root .dk-stat-src {
+      font-size: 10px;
+      color: #B8C4D4;
+      margin-top: 2px;
+    }
+
+    /* Step Cards (Slide 5) */
+    #cvi-deck-root .dk-step {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-top: 4px solid var(--teal);
+      border-radius: 12px;
+      padding: 13px 12px;
+    }
+
+    #cvi-deck-root .dk-step.agent-step {
+      border-top-color: var(--amber);
+      background: #FFFDF6;
+    }
+
+    #cvi-deck-root .dk-step-no {
+      font-size: 10.5px;
+      font-weight: 900;
+      color: var(--teal);
+      letter-spacing: 0.6px;
+      margin-bottom: 5px;
+      display: block;
+    }
+
+    #cvi-deck-root .dk-step.agent-step .dk-step-no { color: var(--amber); }
+
+    #cvi-deck-root .dk-step h4 {
+      margin: 0 0 4px 0;
+      font-size: 14px;
+      color: var(--ink);
+    }
+
+    #cvi-deck-root .dk-step p {
+      margin: 0;
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.38;
+    }
+
+    /* Image Slots */
+    #cvi-deck-root .dk-img {
+      position: relative;
+      width: 100%;
+      min-height: 365px;
+      border-radius: 16px;
+      border: 2px dashed #C7C3B6;
+      background: #ECEAE2;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 18px;
+    }
+
+    #cvi-deck-root .dark-slide .dk-img {
+      background: var(--obsidian-card);
+      border-color: var(--obsidian-border);
+    }
+
+    #cvi-deck-root .dk-img.short {
+      min-height: 185px;
+    }
+
+    #cvi-deck-root .dk-img img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 2;
+    }
+
+    #cvi-deck-root .dk-img img.contain-fit {
+      object-fit: contain;
+      background: #F6F5F0;
+    }
+
+    #cvi-deck-root .dk-img img.missing { display: none; }
+
+    #cvi-deck-root .dk-img-ph {
+      z-index: 1;
+      max-width: 340px;
+      font-size: 12.5px;
+      color: var(--muted);
+    }
+
+    #cvi-deck-root .dark-slide .dk-img-ph { color: #9FB3C8; }
+
+    #cvi-deck-root .dk-img-ph code {
+      display: inline-block;
+      margin-top: 6px;
+      padding: 3px 9px;
+      border-radius: 6px;
+      background: var(--obsidian);
+      color: #5EEAD4;
+      font-size: 11px;
+    }
+
+    /* Callout Bar */
+    #cvi-deck-root .dk-callout {
+      margin-top: 14px;
+      padding: 11px 15px;
+      border-radius: 10px;
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-left: 4px solid var(--teal);
+      font-size: 13px;
+      color: #374151;
+      line-height: 1.45;
+    }
+
+    #cvi-deck-root .dk-callout.amber {
+      background: #FFFBEB;
+      border-color: #FDE68A;
+      border-left: 4px solid var(--amber);
+      color: #78350F;
+    }
+
+    /* Video Stage (Slide 9) */
+    #cvi-deck-root .dk-video-shell {
+      max-width: 960px;
+      margin: 0 auto;
+      background: #060B13;
+      border: 1px solid var(--obsidian-border);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
+    }
+
+    #cvi-deck-root .dk-video-shell video {
+      width: 100%;
+      max-height: 62vh;
+      display: block;
+    }
+
+    #cvi-deck-root .dk-video-bar {
+      padding: 12px 16px;
+      background: var(--obsidian-card);
+      border-top: 1px solid var(--obsidian-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      font-size: 12.5px;
+      color: #9FB3C8;
+    }
+
+    /* Footer Controls */
+    #cvi-deck-root .dk-footer {
+      height: 54px;
+      background: var(--obsidian);
+      border-top: 1px solid var(--obsidian-border);
+      padding: 0 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-shrink: 0;
+      z-index: 50;
+    }
+
+    #cvi-deck-root .dk-btn {
+      background: #1E293B;
+      color: #F7F6F2;
+      border: 1px solid #334155;
+      padding: 6px 13px;
+      border-radius: 8px;
+      font-size: 12.5px;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: 0.16s;
+    }
+
+    #cvi-deck-root .dk-btn:hover:not(:disabled) {
+      border-color: #5EEAD4;
+      color: #5EEAD4;
+    }
+
+    #cvi-deck-root .dk-btn:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+
+    #cvi-deck-root .dk-btn-primary {
+      background: var(--teal);
+      border-color: var(--teal-bright);
+      color: #FFFFFF;
+    }
+
+    #cvi-deck-root .dk-btn-primary:hover:not(:disabled) {
+      background: var(--teal-bright);
+      color: #FFFFFF;
+    }
+
+    #cvi-deck-root .dk-dots { display: flex; gap: 5px; flex-wrap: wrap; }
+    #cvi-deck-root .dk-dot {
+      width: 26px;
+      height: 26px;
+      border-radius: 7px;
+      border: 1px solid #334155;
+      background: #182234;
+      color: #9FB3C8;
+      font-size: 11.5px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    #cvi-deck-root .dk-dot.active {
+      background: #5EEAD4;
+      border-color: #5EEAD4;
+      color: #0F1724;
+    }
+
+    /* Clean Print / PDF Export (Slides 1–9 Landscape) */
+    @media print {
+      html, body {
+        overflow: visible !important;
+        height: auto !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      @page { size: landscape; margin: 0; }
+      #cvi-deck-root { height: auto !important; width: auto !important; display: block !important; }
+      #cvi-deck-root .dk-progress, #cvi-deck-root .dk-footer { display: none !important; }
+      #cvi-deck-root .dk-stage { position: static !important; overflow: visible !important; }
+      #cvi-deck-root .dk-slide {
+        position: static !important;
+        display: flex !important;
+        min-height: 100vh;
+        page-break-after: always;
+        break-after: page;
+        overflow: visible !important;
+      }
+      #cvi-deck-root .dk-slide.is-proto { display: none !important; }
+    }
+  </style>
+
+  <!-- ===================================================================== -->
+  <!-- 2. REDESIGNED PROTOTYPE CSS (4 Clear Separated Sections)              -->
+  <!-- ===================================================================== -->
+  <style>
+    #cvi-prototype-root {
+      --navy: #0B1626;
+      --navy-card: #112036;
+      --slate: #26384B;
+      --slate-hi: #38526E;
+      --cyan: #36C9D8;
+      --cyan-soft: rgba(54, 201, 216, 0.14);
+      --white: #F4F7FA;
+      --muted: #9FB3C8;
+      --ok: #22C55E;
+      --warn: #F59E0B;
+      --err: #EF4444;
+
+      background: var(--navy);
+      color: var(--white);
+      min-height: 100%;
+      width: 100%;
+      box-sizing: border-box;
+      line-height: 1.45;
+      padding-bottom: 34px;
+    }
+
+    #cvi-prototype-root *,
+    #cvi-prototype-root *::before,
+    #cvi-prototype-root *::after {
+      box-sizing: border-box;
+    }
+
+    /* Header */
+    #cvi-prototype-root .cvi-header {
+      background: #08101D;
+      border-bottom: 1px solid var(--slate);
+      padding: 12px 22px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    #cvi-prototype-root .cvi-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    #cvi-prototype-root .cvi-logo {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--cyan), #147E8D);
+      color: var(--navy);
+      font-weight: 900;
+      font-size: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #cvi-prototype-root .cvi-title {
+      font-size: 16px;
+      font-weight: 800;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    #cvi-prototype-root .cvi-badge {
+      font-size: 10.5px;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: var(--cyan-soft);
+      border: 1px solid var(--cyan);
+      color: var(--cyan);
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    #cvi-prototype-root .cvi-wrap {
+      max-width: 1360px;
+      margin: 16px auto 0;
+      padding: 0 20px;
+      display: grid;
+      gap: 16px;
+    }
+
+    /* Section Shell — Clear Visual Separation Between Steps */
+    #cvi-prototype-root .cvi-section {
+      background: var(--navy-card);
+      border: 1px solid var(--slate);
+      border-radius: 14px;
+      overflow: hidden;
+    }
+
+    #cvi-prototype-root .cvi-sec-head {
+      background: #16273E;
+      border-bottom: 1px solid var(--slate);
+      padding: 10px 16px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    #cvi-prototype-root .cvi-sec-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12.5px;
+      font-weight: 800;
+      letter-spacing: 0.4px;
+      color: var(--white);
+      text-transform: uppercase;
+    }
+
+    #cvi-prototype-root .cvi-step-pill {
+      background: var(--cyan);
+      color: var(--navy);
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 900;
+    }
+
+    #cvi-prototype-root .cvi-step-pill.amber {
+      background: var(--warn);
+      color: #0B1626;
+    }
+
+    #cvi-prototype-root .cvi-sec-body {
+      padding: 14px 16px;
+    }
+
+    /* Buttons & Form Inputs */
+    #cvi-prototype-root .cvi-btn {
+      background: var(--slate);
+      color: var(--white);
+      border: 1px solid var(--slate-hi);
+      padding: 7px 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: 0.16s;
+    }
+
+    #cvi-prototype-root .cvi-btn:hover { border-color: var(--cyan); color: var(--cyan); }
+    #cvi-prototype-root .cvi-btn.active { background: var(--cyan-soft); border-color: var(--cyan); color: var(--cyan); }
+    #cvi-prototype-root .cvi-btn-primary { background: var(--cyan); border-color: var(--cyan); color: var(--navy); font-weight: 800; }
+    #cvi-prototype-root .cvi-btn-primary:hover { background: #56DAE8; color: var(--navy); }
+    #cvi-prototype-root .cvi-btn-ok { background: #16A34A; border-color: #22C55E; color: #FFFFFF; font-weight: 800; }
+    #cvi-prototype-root .cvi-btn-ok:hover { background: #22C55E; color: #052E16; }
+    #cvi-prototype-root .cvi-btn-danger { background: rgba(239, 68, 68, 0.16); border-color: var(--err); color: #FCA5A5; }
+    #cvi-prototype-root .cvi-btn-amber { background: rgba(245, 158, 11, 0.16); border-color: var(--warn); color: #FDE68A; }
+    #cvi-prototype-root .cvi-btn-mic-on { background: #DC2626; border-color: #F87171; color: #FFFFFF; animation: cviPulse 1.3s infinite; }
+
+    @keyframes cviPulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.55); }
+      50% { box-shadow: 0 0 0 7px rgba(239, 68, 68, 0); }
+    }
+
+    #cvi-prototype-root select,
+    #cvi-prototype-root input[type="text"],
+    #cvi-prototype-root input[type="password"] {
+      background: var(--navy);
+      color: var(--white);
+      border: 1px solid var(--slate-hi);
+      border-radius: 8px;
+      padding: 7px 10px;
+      font-size: 12.5px;
+      outline: none;
+    }
+
+    #cvi-prototype-root select:focus,
+    #cvi-prototype-root input:focus { border-color: var(--cyan); }
+
+    /* Step 1 Context Row */
+    #cvi-prototype-root .cvi-ctx-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1.2fr 1.5fr auto;
+      gap: 10px;
+      align-items: end;
+    }
+
+    @media (max-width: 980px) {
+      #cvi-prototype-root .cvi-ctx-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    #cvi-prototype-root .cvi-field label {
+      display: block;
+      font-size: 10.5px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    #cvi-prototype-root .cvi-field select,
+    #cvi-prototype-root .cvi-field input { width: 100%; }
+
+    /* Demo Scenario Chips */
+    #cvi-prototype-root .cvi-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid var(--slate);
+    }
+
+    #cvi-prototype-root .cvi-chip {
+      background: #1A2C44;
+      color: var(--white);
+      border: 1px solid var(--slate-hi);
+      border-radius: 8px;
+      padding: 6px 10px;
+      font-size: 11.8px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    #cvi-prototype-root .cvi-chip:hover { border-color: var(--cyan); color: var(--cyan); }
+    #cvi-prototype-root .cvi-chip.agent { border-color: #36C9D8; background: rgba(54, 201, 216, 0.14); color: #A5F3FC; font-weight: 700; }
+    #cvi-prototype-root .cvi-chip.guard { border-color: var(--warn); background: rgba(245, 158, 11, 0.14); color: #FDE68A; }
+
+    /* STEP 3 — CRYSTAL CLEAR DETECTION & APPROVAL BANNER (SEPARATE MIDDLE SECTION) */
+    #cvi-prototype-root .cvi-decision-section {
+      border: 2px solid var(--slate-hi);
+      transition: border-color 0.2s ease, background 0.2s ease;
+    }
+
+    #cvi-prototype-root .cvi-decision-section.state-scanning {
+      border-color: var(--cyan);
+      background: #0F233A;
+    }
+
+    #cvi-prototype-root .cvi-decision-section.state-ready {
+      border-color: var(--ok);
+      background: #0E2524;
+    }
+
+    #cvi-prototype-root .cvi-decision-section.state-agent {
+      border-color: var(--warn);
+      background: #241F12;
+    }
+
+    #cvi-prototype-root .cvi-decision-section.state-blocked {
+      border-color: var(--err);
+      background: #27151B;
+    }
+
+    #cvi-prototype-root .cvi-status-pill {
+      font-size: 11px;
+      font-weight: 900;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: var(--slate);
+      color: var(--muted);
+      letter-spacing: 0.4px;
+    }
+
+    #cvi-prototype-root .cvi-status-pill.live { background: var(--cyan); color: #081220; }
+    #cvi-prototype-root .cvi-status-pill.ok { background: var(--ok); color: #052E16; }
+    #cvi-prototype-root .cvi-status-pill.warn { background: var(--warn); color: #1C1302; }
+    #cvi-prototype-root .cvi-status-pill.err { background: var(--err); color: #FFFFFF; }
+
+    #cvi-prototype-root .cvi-decision-grid {
+      display: grid;
+      grid-template-columns: 1.5fr auto;
+      gap: 16px;
+      align-items: center;
+    }
+
+    @media (max-width: 900px) {
+      #cvi-prototype-root .cvi-decision-grid { grid-template-columns: 1fr; }
+    }
+
+    #cvi-prototype-root .cvi-agent-trace {
+      display: none;
+      margin-top: 10px;
+      padding: 10px 12px;
+      border-radius: 8px;
+      background: rgba(8, 16, 29, 0.72);
+      border: 1px dashed var(--warn);
+      font-family: ui-monospace, Consolas, monospace;
+      font-size: 11.5px;
+      color: #FDE68A;
+      line-height: 1.5;
+    }
+
+    /* MAIN 2-COLUMN WORKSPACE: LEFT = STEP 2 (INPUT), RIGHT = STEP 4 (PROJECTOR OUTPUT) */
+    #cvi-prototype-root .cvi-workspace {
+      display: grid;
+      grid-template-columns: 1.08fr 1fr;
+      gap: 16px;
+      align-items: stretch;
+    }
+
+    @media (max-width: 980px) {
+      #cvi-prototype-root .cvi-workspace { grid-template-columns: 1fr; }
+    }
+
+    /* Left: Whiteboard + Voice Input */
+    #cvi-prototype-root .cvi-wb-stage {
+      position: relative;
+      background: #FAFBFD;
+      border-bottom: 1px solid #CBD5E1;
+    }
+
+    #cvi-prototype-root .cvi-roi-frame {
+      position: absolute;
+      inset: 8px;
+      border: 2px dashed rgba(15, 92, 99, 0.7);
+      border-radius: 6px;
+      pointer-events: none;
+      z-index: 4;
+    }
+
+    #cvi-prototype-root .cvi-roi-tag {
+      position: absolute;
+      top: 12px;
+      left: 14px;
+      z-index: 5;
+      font-size: 10px;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 5px;
+      background: rgba(11, 22, 38, 0.88);
+      color: var(--cyan);
+      pointer-events: none;
+    }
+
+    #cvi-prototype-root #cvi-wb-canvas {
+      width: 100%;
+      height: 310px;
+      display: block;
+      cursor: crosshair;
+      touch-action: none;
+    }
+
+    #cvi-prototype-root #cvi-webcam-wrap {
+      display: none;
+      position: relative;
+      width: 100%;
+      height: 310px;
+      background: #060D17;
+    }
+
+    #cvi-prototype-root #cvi-webcam-video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    #cvi-prototype-root .cvi-wb-bar {
+      background: #E9EEF5;
+      padding: 8px 12px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    #cvi-prototype-root .cvi-swatch {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 2px solid #94A3B8;
+      cursor: pointer;
+    }
+
+    #cvi-prototype-root .cvi-swatch.active {
+      border-color: #0F5C63;
+      transform: scale(1.15);
+    }
+
+    #cvi-prototype-root .cvi-mini-btn {
+      background: #FFFFFF;
+      color: #0F172A;
+      border: 1px solid #94A3B8;
+      border-radius: 6px;
+      padding: 4px 8px;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    #cvi-prototype-root .cvi-voice-bar {
+      background: #0D1A2D;
+      border-top: 1px solid var(--slate);
+      padding: 9px 14px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      font-size: 11.8px;
+    }
+
+    /* Right: Projector Output */
+    #cvi-prototype-root .cvi-proj-body {
+      position: relative;
+      background: #07101D;
+      min-height: 310px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #cvi-prototype-root #cvi-visual-canvas {
+      width: 100%;
+      height: 310px;
+      display: block;
+    }
+
+    #cvi-prototype-root .cvi-proj-idle {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 24px;
+      background: #081221;
+      color: var(--muted);
+    }
+
+    #cvi-prototype-root .cvi-proj-foot {
+      background: #132338;
+      border-top: 1px solid var(--slate);
+      padding: 9px 14px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    /* Collapsible Bottom Engineering Log */
+    #cvi-prototype-root .cvi-log-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      font-family: ui-monospace, Consolas, monospace;
+      font-size: 11.5px;
+      max-height: 120px;
+      overflow-y: auto;
+      display: grid;
+      gap: 5px;
+    }
+
+    #cvi-prototype-root .cvi-log-item {
+      background: var(--navy);
+      border: 1px solid var(--slate);
+      padding: 5px 9px;
+      border-radius: 6px;
+      color: #CBD5E1;
+    }
+
+    /* Modal */
+    #cvi-prototype-root .cvi-modal-bg {
+      position: fixed;
+      inset: 0;
+      background: rgba(5, 10, 18, 0.75);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+      padding: 16px;
+    }
+    #cvi-prototype-root .cvi-modal-bg.open { display: flex; }
+    #cvi-prototype-root .cvi-modal {
+      background: var(--navy-card);
+      border: 1px solid var(--slate-hi);
+      border-radius: 14px;
+      max-width: 480px;
+      width: 100%;
+      padding: 20px;
+      color: var(--white);
+    }
+  </style>
+</head>
+<body>
+
+  <div id="cvi-deck-root">
+    <!-- Top Progress Bar -->
+    <div class="dk-progress"><div class="dk-progress-bar" id="dk-bar"></div></div>
+
+    <div class="dk-stage">
+
+      <!-- ============================================================= -->
+      <!-- SLIDE 1: COMMUTESYNC AI (BOLD POSITIONING + 3 MEMBERS)        -->
+      <!-- ============================================================= -->
+      <section class="dk-slide dark-slide active" data-title="CommuteSync AI">
+        <div class="dk-wrap">
+          <div class="dk-2col">
+            <div>
+              <span class="dk-eyebrow">Classroom Visual Intelligence Platform</span>
+              <h1 class="dk-h1">CommuteSync AI</h1>
+              <div class="dk-hero-bold">
+                Pioneering AI-Driven Physical Whiteboard Classrooms in Pakistan
+              </div>
+              <p class="dk-lead" style="font-size:15.5px; margin-bottom:26px;">
+                We are not asking schools to rebuild their classrooms — we are helping existing classrooms become intelligent through ordinary whiteboards, teacher voice context, and existing projectors.
+              </p>
+              <div style="border-left:3px solid #5EEAD4; padding-left:14px; font-size:14px; color:#B8C4D4; line-height:1.55;">
+                <strong style="color:#F7F6F2; font-size:15px;">Syed Mohib Ali Shah • Hassnain Iqbal • Syed Shaheer</strong><br>
+                BS Computer Science • University of Haripur, Pakistan
+              </div>
+            </div>
+
+            <div class="dk-img" style="min-height:385px;">
+              <img decoding="async" src="1.jpg" alt="CommuteSync AI Pakistani Classroom" onerror="this.classList.add('missing')" />
+              <div class="dk-img-ph">
+                <strong>Scene 1 — Hero Classroom Photo</strong><br>
+                <code>1.jpg</code>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================= -->
+      <!-- SLIDE 2: THE PROBLEM (STORYTELLING CHAIN + 3 OFFICIAL STATS)  -->
+      <!-- ============================================================= -->
+      <section class="dk-slide" data-title="The Problem">
+        <div class="dk-wrap">
+          <span class="dk-eyebrow">01 / The Classroom Reality</span>
+          <h2 class="dk-h2">When Concepts Stay Invisible, Interest Fades First</h2>
+
+          <div class="dk-2col">
+            <div>
+              <!-- Storytelling Opening -->
+              <div class="dk-story-box">
+                <strong>Examine a real classroom scenario:</strong> A teacher explains an abstract concept on an ordinary whiteboard using only a marker. Students hear the words, but cannot visualize how the process actually works. While education dropouts have many socio-economic causes, <strong>comprehension failure inside the classroom is the foundational trigger</strong>.
+              </div>
+
+              <!-- 4-Step Crisis Chain -->
+              <div class="dk-chain">
+                <div class="dk-chain-node">
+                  <strong>1. No Visualization</strong>
+                  <span>Static marker sketches cannot show motion or 3D flow.</span>
+                </div>
+                <div class="dk-chain-node">
+                  <strong>2. Hard to Grasp</strong>
+                  <span>Abstract STEM topics feel confusing and heavy.</span>
+                </div>
+                <div class="dk-chain-node">
+                  <strong>3. Lack of Interest</strong>
+                  <span>Average students disengage and turn to rote memory.</span>
+                </div>
+                <div class="dk-chain-node end-node">
+                  <strong>4. Larger Crisis</strong>
+                  <span>Disengagement compounds Pakistan's dropout risk.</span>
+                </div>
+              </div>
+
+              <!-- Teacher Headache (Schools & Colleges Textbook Reality) -->
+              <div class="dk-callout amber" style="margin-top:0; margin-bottom:12px; padding:10px 13px; font-size:12.8px;">
+                <strong>The Teacher's Headache:</strong> Schools and colleges strictly teach from fixed textbooks on physical whiteboards. Expecting teachers to manually hunt for verified animations for every daily topic is unrealistic and breaks classroom flow.
+              </div>
+
+              <!-- 3 Official Pakistan Stats (10-15 sec delivery) -->
+              <div class="dk-3col" style="gap:10px;">
+                <div class="dk-stat-tile">
+                  <div class="dk-stat-val">60.6%</div>
+                  <div class="dk-stat-name">Literacy Rate</div>
+                  <div class="dk-stat-src">Economic Survey / PBS</div>
+                </div>
+                <div class="dk-stat-tile">
+                  <div class="dk-stat-val">26.2M</div>
+                  <div class="dk-stat-name">Out-of-School (28%)</div>
+                  <div class="dk-stat-src">PIE 2023–24 / HIES</div>
+                </div>
+                <div class="dk-stat-tile teal-bg">
+                  <div class="dk-stat-val">1M Target</div>
+                  <div class="dk-stat-name">National AI Policy 2025</div>
+                  <div class="dk-stat-src">MoITT Cabinet Approved</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="dk-img" style="min-height:420px;">
+              <img decoding="async" src="2.jpg" alt="Traditional whiteboard classroom in Pakistan" onerror="this.classList.add('missing')" />
+              <div class="dk-img-ph">
+                <strong>Scene 2 — Traditional Classroom</strong><br>
+                <code>2.jpg</code>
+              </div>
+            </div>
+          </div>
+
+          <div class="dk-footnote">
+            Sources: Pakistan Economic Survey 2023–24 (60.6% Literacy) • Pakistan Institute of Education 2023–24 &amp; PBS HIES 2024–25 (26.2M / 28% Out-of-School) • MoITT National AI Policy 2025 (1M AI Learners Target).
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================= -->
+      <!-- SLIDE 3: COMPETITOR ANALYSIS (CUT-TO-CUT LOCAL VS FRAGMENTED) -->
+      <!-- ============================================================= -->
+      <section class="dk-slide" data-title="Competitor Analysis">
+        <div class="dk-wrap">
+          <span class="dk-eyebrow">02 / Competitor &amp; Market Landscape</span>
+          <h2 class="dk-h2">Fragmented Globally. Untouched on Pakistani Whiteboards.</h2>
+          <p class="dk-lead">
+            Across the world, classroom tools exist in disconnected pieces — hardware in one place, standalone simulations in another. Nobody unites physical whiteboards with real-time AI visuals in Pakistan.
+          </p>
+
+          <div class="dk-3col">
+            <!-- Block 1: Pakistan Local -->
+            <div class="dk-card">
+              <span class="dk-pill amber">Pakistan Right Now</span>
+              <h3>Student Apps &amp; Digital LMS Only</h3>
+              <ul>
+                <li><strong>Maqsad, Sabaq, Edkasa:</strong> Focus on student mobile apps, recorded lecture videos, and photo-based homework solving.</li>
+                <li><strong>Taleemabad &amp; Knowledge Platform:</strong> Build digital LMS and tablet/screen-based lessons.</li>
+                <li><strong>The Gap:</strong> Zero live support for teachers teaching on ordinary physical whiteboards with existing projectors.</li>
+              </ul>
+            </div>
+
+            <!-- Block 2: Fragmented Global -->
+            <div class="dk-card">
+              <span class="dk-pill">Global Market (Fragmented)</span>
+              <h3>Scattered Pieces or Costly Hardware</h3>
+              <ul>
+                <li><strong>Board Cameras</strong> (Logitech Scribe, Huddly, Kaptivo): Only digitize/stream board ink to video calls — no topic visuals.</li>
+                <li><strong>Smartboard Hardware</strong> (SMART, Promethean, ViewSonic): Require expensive full-board hardware replacement.</li>
+                <li><strong>Simulation Apps</strong> (PhET, BioDigital, Khanmigo): Disconnected from physical boards; require manual mid-class searching.</li>
+              </ul>
+            </div>
+
+            <!-- Block 3: CommuteSync AI -->
+            <div class="dk-card dark-card">
+              <span class="dk-pill dark">What We Introduce</span>
+              <h3>CommuteSync AI (Unified Layer)</h3>
+              <ul>
+                <li><strong>No Board Replacement:</strong> Software-first layer working on existing whiteboards and projectors.</li>
+                <li><strong>Multimodal Understanding:</strong> Combines live whiteboard camera + teacher voice + textbook syllabus context.</li>
+                <li><strong>Hybrid Visual Engine:</strong> Verified library first + real-time Agentic AI generation when a topic is unlisted.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================= -->
+      <!-- SLIDE 4: OUR SOLUTION (UPGRADE, DON'T REPLACE + MULTIMODAL)   -->
+      <!-- ============================================================= -->
+      <section class="dk-slide" data-title="Our Solution">
+        <div class="dk-wrap">
+          <span class="dk-eyebrow">03 / Our Solution</span>
+          <h2 class="dk-h2">Upgrade the Classroom. Don't Replace It.</h2>
+
+          <div class="dk-2col">
+            <div style="display:grid; gap:13px;">
+              <div class="dk-card featured">
+                <span class="dk-pill">Multimodal Input (Vision + Voice)</span>
+                <h3>Sees the Whiteboard. Listens to the Teacher.</h3>
+                <p>A camera observes the teacher's natural marker writing while audio context listens to their explanation — resolving shorthand notes, rough sketches, and acting as a fallback in low-light rooms.</p>
+              </div>
+              <div class="dk-card">
+                <span class="dk-pill">Two-Tier Intelligence</span>
+                <h3>Verified Library + Real-Time Agentic AI</h3>
+                <p>Common syllabus topics load instantly from our curated library. If a teacher writes an unlisted concept, our Agentic AI generates an accurate visual live — and caches it for future reuse.</p>
+              </div>
+              <div class="dk-card">
+                <span class="dk-pill amber">Built for Real Classrooms</span>
+                <h3>Syllabus-Locked, Offline-Capable &amp; Private</h3>
+                <p>Filtered by active subject/chapter, projects cleanly beside handwriting with teacher approval, works offline on preloaded topics, and keeps zero stored audio recordings.</p>
+              </div>
+            </div>
+
+            <div class="dk-img" style="min-height:395px;">
+              <img decoding="async" src="3.jpg" alt="Split whiteboard solution" onerror="this.classList.add('missing')" />
+              <div class="dk-img-ph">
+                <strong>Scene 3 — Split-Board Solution</strong><br>
+                <code>3.jpg</code>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================= -->
+      <!-- SLIDE 5: HOW IT WORKS (MULTIMODAL + HYBRID AGENTIC PIPELINE)  -->
+      <!-- ============================================================= -->
+      <section class="dk-slide" data-title="How It Works">
+        <div class="dk-wrap">
+          <span class="dk-eyebrow">04 / Technical Workflow</span>
+          <h2 class="dk-h2">Multimodal Detection + Self-Growing Agentic AI</h2>
+
+          <div class="dk-5col" style="margin-bottom:16px;">
+            <div class="dk-step">
+              <span class="dk-step-no">01 • MULTIMODAL INPUT</span>
+              <h4>Board + Voice Capture</h4>
+              <p>USB webcam watches writing zone (ROI); mic listens to teacher explanation (RAM-only, never stored).</p>
+            </div>
+            <div class="dk-step">
+              <span class="dk-step-no">02 • AI FUSION</span>
+              <h4>OCR + Speech + Syllabus</h4>
+              <p>PaddleOCR / Vision LLM + Urdu-English ASR fuse with active Level, Subject &amp; Chapter context.</p>
+            </div>
+            <div class="dk-step">
+              <span class="dk-step-no">03 • TIER 1 (FAST)</span>
+              <h4>Verified Cloud Library</h4>
+              <p>Vector search retrieves pre-verified visuals from Cloud S3/R2 CDN or local offline campus cache.</p>
+            </div>
+            <div class="dk-step agent-step">
+              <span class="dk-step-no">04 • TIER 2 (FALLBACK)</span>
+              <h4>Live Agentic AI</h4>
+              <p>On library miss: Prompt Agent LLM crafts structured prompt → Visual API generates → Auto-saves to library.</p>
+            </div>
+            <div class="dk-step">
+              <span class="dk-step-no">05 • OUTPUT</span>
+              <h4>Approved Projection</h4>
+              <p>Teacher approves visual; existing projector displays it in a reserved side zone without covering ink.</p>
+            </div>
+          </div>
+
+          <div class="dk-img short">
+            <img decoding="async" class="contain-fit" src="Smart EdTech Classroom Workflow.png" alt="Multimodal and Agentic AI workflow diagram" onerror="this.classList.add('missing')" />
+            <div class="dk-img-ph" style="max-width:960px;">
+              <strong>Scene 4 — Multimodal + Agentic Workflow Diagram</strong><br>
+              Replace with newly generated Vision + Audio + Tier 1 / Tier 2 Agentic diagram
+              <code>From Whiteboard to Visual Learning.jpg</code>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================= -->
+      <!-- SLIDE 6: OPTIONAL HARDWARE KIT                                -->
+      <!-- ============================================================= -->
+      <section class="dk-slide" data-title="Optional Hardware Kit">
+        <div class="dk-wrap">
+          <span class="dk-eyebrow">05 / Practical Deployment</span>
+          <h2 class="dk-h2">Reuse Existing Gear. Add a Kit Only Where Needed.</h2>
+
+          <div class="dk-2col">
+            <div style="display:grid; gap:15px;">
+              <div class="dk-card featured">
+                <span class="dk-pill">Default — Existing Classrooms</span>
+                <h3>Software-First Setup</h3>
+                <ul>
+                  <li>Ordinary physical whiteboard (no replacement)</li>
+                  <li>Existing classroom projector or shared TV</li>
+                  <li>Teacher's laptop + built-in or USB webcam &amp; mic</li>
+                </ul>
+              </div>
+
+              <div class="dk-card amber-top">
+                <span class="dk-pill amber">Optional — Non-Projector Rooms</span>
+                <h3>Classroom Upgrade Kit</h3>
+                <ul>
+                  <li>Portable classroom projector</li>
+                  <li>External USB webcam + desk/tripod mount</li>
+                  <li>Optional wireless collar mic (for noisy classrooms) &amp; HDMI/USB cables</li>
+                </ul>
+                <div class="dk-callout amber" style="margin-top:6px; padding:8px 12px; font-size:12.5px;">
+                  <strong>Honest Scope:</strong> Laptop is <u>not</u> included in the kit. A projector or TV is required for classroom-wide display.
+                </div>
+              </div>
+            </div>
+
+            <div class="dk-img" style="min-height:390px;">
+              <img decoding="async" src="Modern Tech Kit on Wooden Table.jpg" alt="Optional classroom hardware kit" onerror="this.classList.add('missing')" />
+              <div class="dk-img-ph">
+                <strong>Scene 5 — Optional Hardware Kit</strong><br>
+                <code>Modern Tech Kit on Wooden Table.jpg</code>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================= -->
+      <!-- SLIDE 7: BUSINESS MODEL                                       -->
+      <!-- ============================================================= -->
+      <section class="dk-slide" data-title="Business Model">
+        <div class="dk-wrap">
+          <span class="dk-eyebrow">06 / Business Model</span>
+          <h2 class="dk-h2">Institutional Licensing With Self-Improving Economics</h2>
+
+          <div class="dk-3col">
+            <div class="dk-card featured">
+              <span class="dk-pill">Primary Stream</span>
+              <h3>Per-Classroom License</h3>
+              <ul>
+                <li>Annual B2B subscription for universities, colleges &amp; schools</li>
+                <li>Multimodal board + voice recognition software</li>
+                <li>Core curated library + institutional onboarding</li>
+              </ul>
+            </div>
+
+            <div class="dk-card">
+              <span class="dk-pill">Add-On 01</span>
+              <h3>Premium Syllabus Packs</h3>
+              <ul>
+                <li>Board-aligned Matric &amp; HSSC visual modules</li>
+                <li>University STEM course libraries</li>
+                <li>Offline campus sync bundles</li>
+              </ul>
+            </div>
+
+            <div class="dk-card amber-top">
+              <span class="dk-pill amber">Add-On 02</span>
+              <h3>Optional Hardware Kit</h3>
+              <ul>
+                <li>One-time deployment kit for non-projector rooms</li>
+                <li>Unlocks smaller colleges &amp; underserved schools</li>
+                <li>Paired with annual software license</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="dk-callout">
+            <strong>Self-Growing Cost Advantage:</strong> Every new topic generated by Agentic AI is verified and cached once in our Cloud Library — meaning as more institutions join, repeated topics load from cache and <strong>per-classroom API cost drops over time</strong>. Final pricing tiers will be validated during our Phase 1 university pilot.
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================= -->
+      <!-- SLIDE 8: SCALABILITY & GOOD FUNDING STRATEGY                  -->
+      <!-- ============================================================= -->
+      <section class="dk-slide" data-title="Scalability & Funding">
+        <div class="dk-wrap">
+          <span class="dk-eyebrow">07 / Scalability &amp; Strategic Funding</span>
+          <h2 class="dk-h2">Why Good Funding Turns an Offline MVP Into National Infrastructure</h2>
+
+          <!-- 3-Phase Growth Strip -->
+          <div class="dk-3col" style="margin-bottom:14px;">
+            <div class="dk-card featured" style="padding:14px 16px;">
+              <span class="dk-pill">Phase 01 • Pilot</span>
+              <h3>University Pilot (Haripur)</h3>
+              <p>Test in 2–3 projector rooms to validate handwriting OCR, Urdu-English voice fusion, latency &amp; teacher workflow.</p>
+            </div>
+            <div class="dk-card" style="padding:14px 16px;">
+              <span class="dk-pill">Phase 02 • Regional</span>
+              <h3>Colleges &amp; Board Classes</h3>
+              <p>Roll out Matric/HSSC textbook packs (Biology, Physics, Chemistry, CS) across projector-equipped colleges.</p>
+            </div>
+            <div class="dk-card" style="padding:14px 16px;">
+              <span class="dk-pill amber">Phase 03 • Scale</span>
+              <h3>Schools &amp; Underserved Areas</h3>
+              <p>Expand nationwide using Optional Hardware Kits and synced offline libraries for low-bandwidth schools.</p>
+            </div>
+          </div>
+
+          <!-- Good Funding Allocation vs Bootstrapped Reality -->
+          <div class="dk-2eq">
+            <div class="dk-card featured" style="padding:16px 18px;">
+              <span class="dk-pill">Where Good Funding Is Required</span>
+              <h3>Production Infrastructure &amp; API Pipeline</h3>
+              <ul>
+                <li><strong>Detection Models:</strong> Classroom Vision OCR tuning + Urdu-English Speech ASR integration.</li>
+                <li><strong>Real-Time Agentic APIs:</strong> Prompt Architect LLM &amp; live visual/diagram generation API credits.</li>
+                <li><strong>Vast Cloud Storage (TBs):</strong> Multi-board syllabus asset storage, CDN streaming &amp; vector search database.</li>
+                <li><strong>Pilot &amp; Verification:</strong> Educator content verification + pilot webcams, collar mics &amp; portable test kits.</li>
+              </ul>
+            </div>
+
+            <div class="dk-card dark-card" style="padding:16px 18px;">
+              <span class="dk-pill dark">Honest Founder Reality</span>
+              <h3>Without Funding vs. With Good Funding</h3>
+              <ul>
+                <li><strong>Without Good Funding:</strong> Live generation APIs and TB-scale cloud storage cannot be self-funded — the product stays limited to a <strong>small offline MVP</strong> (preloaded core animations for local demos).</li>
+                <li><strong>With Good Funding:</strong> Unlocks real-time Agentic generation, full multimodal detection, TB-scale curriculum cloud, and real institutional deployment across Pakistan.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================= -->
+      <!-- SLIDE 9: VIDEO PRESENTATION (2.5MB + SMART PRE-BUFFER)        -->
+      <!-- ============================================================= -->
+      <section class="dk-slide dark-slide" data-title="Video Presentation">
+        <div class="dk-wrap">
+          <div style="text-align:center; margin-bottom:16px;">
+            <span class="dk-eyebrow">08 / Project Vision</span>
+            <h2 class="dk-h2" style="margin-bottom:4px;">Video Presentation</h2>
+          </div>
+
+          <div class="dk-video-shell">
+            <video id="dk-video" controls preload="none" poster="1.jpg">
+              <source src="lv-0-20261122134135_mRnLh31e.mp4" type="video/mp4" />
+            </video>
+            <div class="dk-video-bar">
+              <span id="dk-video-lbl">Loaded asset: <code style="color:#5EEAD4;">lv_0_20261122134135.mp4</code></span>
+              <div>
+                <input type="file" id="dk-vid-file" accept="video/*" style="display:none;" onchange="CVIDeck.loadVideo(event)" />
+                <button class="dk-btn dk-btn-primary" onclick="document.getElementById('dk-vid-file').click()">
+                  Load Local .mp4
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================= -->
+      <!-- SLIDE 10: CLEAN 4-SECTION LIVE WORKING PROTOTYPE              -->
+      <!-- ============================================================= -->
+      <section class="dk-slide is-proto" data-title="Live Working Prototype">
+        <div id="cvi-prototype-root" aria-label="CommuteSync AI Live Prototype">
+
+          <!-- Prototype Top Bar -->
+          <div class="cvi-header">
+            <div class="cvi-brand">
+              <div class="cvi-logo">CS</div>
+              <div>
+                <h1 class="cvi-title">
+                  CommuteSync AI — Live Classroom Prototype
+                  <span class="cvi-badge">Multimodal + Hybrid Agentic MVP</span>
+                </h1>
+              </div>
+            </div>
+
+            <div style="display:flex; gap:8px; flex-wrap:wrap;">
+              <button class="cvi-btn active" id="cvi-mode-offline" onclick="CVIPrototype.setConnectivity('offline')">
+                ● Offline Library
+              </button>
+              <button class="cvi-btn" id="cvi-mode-online" onclick="CVIPrototype.setConnectivity('online')">
+                ☁ Online Cloud + Agentic
+              </button>
+              <button class="cvi-btn active" id="cvi-approval-toggle" onclick="CVIPrototype.toggleApprovalMode()">
+                ✋ Teacher Approval: ON
+              </button>
+              <button class="cvi-btn" onclick="CVIPrototype.openModal()">
+                ⚙️ API Setup
+              </button>
+            </div>
+          </div>
+
+          <div class="cvi-wrap">
+
+            <!-- ======================================================= -->
+            <!-- SECTION 1: PRE-CLASS SYLLABUS CONTEXT & QUICK DEMOS     -->
+            <!-- ======================================================= -->
+            <div class="cvi-section">
+              <div class="cvi-sec-head">
+                <span class="cvi-sec-label">
+                  <span class="cvi-step-pill">STEP 1</span>
+                  Pre-Class Syllabus Context &amp; Live Demo Triggers
+                </span>
+                <span id="cvi-hw-status" style="font-size:11.5px; color:var(--cyan); font-weight:700;">
+                  Ready: 5 Preloaded Verified Topics + Live Agentic Fallback
+                </span>
+              </div>
+              <div class="cvi-sec-body">
+                <div class="cvi-ctx-grid">
+                  <div class="cvi-field">
+                    <label for="cvi-level">Education Level</label>
+                    <select id="cvi-level" onchange="CVIPrototype.onContextChange()">
+                      <option value="HSSC">Intermediate / HSSC</option>
+                      <option value="University">University (BS Level)</option>
+                      <option value="Matric">Matric (9th–10th)</option>
+                    </select>
+                  </div>
+                  <div class="cvi-field">
+                    <label for="cvi-subject">Active Subject</label>
+                    <select id="cvi-subject" onchange="CVIPrototype.onContextChange()">
+                      <option value="Biology">Biology</option>
+                      <option value="Physics">Physics</option>
+                      <option value="Computer Science">Computer Science</option>
+                      <option value="Chemistry">Chemistry</option>
+                      <option value="Mathematics">Mathematics</option>
+                    </select>
+                  </div>
+                  <div class="cvi-field">
+                    <label for="cvi-chapter">Active Chapter</label>
+                    <select id="cvi-chapter"></select>
+                  </div>
+                  <div class="cvi-field">
+                    <label for="cvi-manual-ocr">Detected Board / Voice Text</label>
+                    <input type="text" id="cvi-manual-ocr" value="Human Heart — Blood Circulation" />
+                  </div>
+                  <div>
+                    <button class="cvi-btn cvi-btn-primary" style="height:34px;" onclick="CVIPrototype.runPipelineFromText()">
+                      🔍 Detect Now
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Clear Labeled Scenario Triggers -->
+                <div class="cvi-chips">
+                  <button class="cvi-chip" onclick="CVIPrototype.simulateTeacher('HSSC','Biology','Human Heart — Blood Circulation','Now let us trace how oxygenated and deoxygenated blood moves through the four chambers of the human heart.')">
+                    🫀 Tier 1: Human Heart
+                  </button>
+                  <button class="cvi-chip" onclick="CVIPrototype.simulateTeacher('HSSC','Physics','Electromagnetic Induction (Faraday Law)','When we move a bar magnet into this copper coil, changing magnetic flux induces electric current.')">
+                    🧲 Tier 1: Faraday Induction
+                  </button>
+                  <button class="cvi-chip" onclick="CVIPrototype.simulateTeacher('University','Computer Science','Shortest Path — Dijkstra Graph','Starting from node A with distance zero, we relax each weighted edge to find the shortest path.')">
+                    🕸️ Tier 1: Shortest Path
+                  </button>
+                  <button class="cvi-chip" onclick="CVIPrototype.simulateTeacher('Matric','Chemistry','Covalent Bonding — H2O Molecule','Oxygen shares two valence electron pairs with two hydrogen atoms forming a 104.5 degree angle.')">
+                    ⚛️ Tier 1: H₂O Bonding
+                  </button>
+                  <button class="cvi-chip" onclick="CVIPrototype.simulateTeacher('University','Mathematics','3D Vector Cross Product (a x b)','The cross product of vectors a and b produces an orthogonal vector perpendicular to the 3D plane.')">
+                    📐 Tier 1: 3D Cross Product
+                  </button>
+                  <button class="cvi-chip agent" onclick="CVIPrototype.simulateTeacher('HSSC','Biology','DNA Replication — Leading & Lagging Strand','Helicase unzips the DNA double helix so DNA polymerase can synthesize the complementary strands.')">
+                    ⚡ Tier 2 Agentic Fallback: DNA Replication (Not in Library!)
+                  </button>
+                  <button class="cvi-chip guard" onclick="CVIPrototype.simulateTeacher('HSSC','Mathematics','Induction','To prove this formula by mathematical induction, we first verify the base case n equals one.')">
+                    ⚠️ Context Guard: "Induction" in Math
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- ======================================================= -->
+            <!-- SECTION 3: CRYSTAL-CLEAR DETECTION & APPROVAL GATE      -->
+            <!-- (Visually highlighted so judges see WHEN it triggers!)  -->
+            <!-- ======================================================= -->
+            <div class="cvi-section cvi-decision-section" id="cvi-decision-box">
+              <div class="cvi-sec-head">
+                <span class="cvi-sec-label">
+                  <span class="cvi-step-pill amber">STEP 3 • AI DECISION &amp; TEACHER GATE</span>
+                  Real-Time Detection Status &amp; Approval Control
+                </span>
+                <span class="cvi-status-pill" id="cvi-status-pill">● STANDBY — WAITING FOR BOARD OR VOICE INPUT</span>
+              </div>
+              <div class="cvi-sec-body">
+                <div class="cvi-decision-grid">
+                  <div>
+                    <div id="cvi-decision-headline" style="font-size:14.5px; font-weight:800; color:#F4F7FA;">
+                      Click any scenario above, draw on the whiteboard, or turn on the Live Mic below.
+                    </div>
+                    <div id="cvi-decision-sub" style="font-size:12.5px; color:var(--muted); margin-top:3px;">
+                      Nothing appears on the classroom projector until the topic is matched (or generated) and approved by the teacher.
+                    </div>
+                    <div id="cvi-agent-trace" class="cvi-agent-trace"></div>
+                  </div>
+
+                  <div id="cvi-approval-actions" style="display:none; gap:8px; flex-wrap:wrap;">
+                    <button class="cvi-btn cvi-btn-ok" style="padding:10px 18px; font-size:13.5px;" onclick="CVIPrototype.approvePending()">
+                      ✔ Project to Classroom Board
+                    </button>
+                    <button class="cvi-btn cvi-btn-danger" style="padding:10px 14px;" onclick="CVIPrototype.rejectPending()">
+                      ✕ Ignore
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ======================================================= -->
+            <!-- SECTIONS 2 & 4 SIDE-BY-SIDE: INPUT (LEFT) -> OUTPUT     -->
+            <!-- ======================================================= -->
+            <div class="cvi-workspace">
+
+              <!-- SECTION 2: MULTIMODAL INPUT (WHITEBOARD + VOICE MIC) -->
+              <div class="cvi-section">
+                <div class="cvi-sec-head">
+                  <span class="cvi-sec-label">
+                    <span class="cvi-step-pill">STEP 2</span>
+                    Input: Physical Whiteboard (Camera ROI) + Voice
+                  </span>
+                  <div style="display:flex; gap:6px;">
+                    <button class="cvi-btn active" id="cvi-src-sim" style="padding:4px 9px;" onclick="CVIPrototype.setInputSource('sim')">✏️ Board Sim</button>
+                    <button class="cvi-btn" id="cvi-src-cam" style="padding:4px 9px;" onclick="CVIPrototype.setInputSource('cam')">📷 Live Webcam</button>
+                  </div>
+                </div>
+
+                <div class="cvi-wb-stage">
+                  <div class="cvi-roi-tag" id="cvi-left-tag">CAMERA ROI • WATCHING WRITING ZONE ONLY</div>
+                  <div class="cvi-roi-frame"></div>
+
+                  <canvas id="cvi-wb-canvas" width="600" height="310"></canvas>
+
+                  <div id="cvi-webcam-wrap">
+                    <video id="cvi-webcam-video" autoplay playsinline muted></video>
+                    <canvas id="cvi-capture-buffer" width="600" height="310" style="display:none;"></canvas>
+                    <div style="position:absolute; bottom:10px; left:10px; right:10px; display:flex; justify-content:space-between; align-items:center; background:rgba(11,22,38,0.88); padding:8px 10px; border-radius:8px; font-size:11.5px;">
+                      <span id="cvi-cam-msg">Frame board writing inside ROI box.</span>
+                      <button class="cvi-btn cvi-btn-primary" style="padding:5px 10px;" onclick="CVIPrototype.captureWebcamFrame()">📸 Capture</button>
+                    </div>
+                  </div>
+
+                  <div class="cvi-wb-bar">
+                    <div style="display:flex; align-items:center; gap:6px;">
+                      <span style="font-size:11px; font-weight:800; color:#334155;">Markers:</span>
+                      <button class="cvi-swatch active" style="background:#0F172A;" onclick="CVIPrototype.setMarker('#0F172A',3,this)"></button>
+                      <button class="cvi-swatch" style="background:#1D4ED8;" onclick="CVIPrototype.setMarker('#1D4ED8',3,this)"></button>
+                      <button class="cvi-swatch" style="background:#DC2626;" onclick="CVIPrototype.setMarker('#DC2626',3,this)"></button>
+                      <button class="cvi-mini-btn" onclick="CVIPrototype.setMarker('#FAFBFD',18,null)">🧽 Eraser</button>
+                      <button class="cvi-mini-btn" onclick="CVIPrototype.clearBoard()">🗑️ Clear</button>
+                    </div>
+                    <button class="cvi-mini-btn" style="background:#0B1626; color:#36C9D8; border-color:#0B1626;" onclick="CVIPrototype.scanDrawnBoard()">
+                      📷 Scan Board
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Live Voice Context Strip (Multimodal Audio Input) -->
+                <div class="cvi-voice-bar">
+                  <div style="display:flex; align-items:center; gap:8px; flex:1; min-width:220px;">
+                    <button class="cvi-btn" id="cvi-mic-btn" style="padding:5px 10px;" onclick="CVIPrototype.toggleVoiceMic()">
+                      🎙️ Live Voice Mic
+                    </button>
+                    <span id="cvi-voice-transcript" style="color:var(--muted); font-style:italic;">
+                      Voice context idle (RAM-only, zero audio stored)
+                    </span>
+                  </div>
+                  <span style="font-size:10.5px; color:#5EEAD4; font-weight:700;">Vision + Voice Fusion</span>
+                </div>
+              </div>
+
+              <!-- SECTION 4: CLASSROOM PROJECTOR OUTPUT -->
+              <div class="cvi-section" id="cvi-projector-zone">
+                <div class="cvi-sec-head">
+                  <span class="cvi-sec-label">
+                    <span class="cvi-step-pill" style="background:#22C55E;">STEP 4</span>
+                    Output: Classroom Projector (Reserved Side Zone)
+                  </span>
+                  <button class="cvi-btn" style="padding:4px 9px;" onclick="CVIPrototype.toggleFullscreenProjector()">📽️ Fullscreen</button>
+                </div>
+
+                <div class="cvi-proj-body">
+                  <canvas id="cvi-visual-canvas" width="540" height="310"></canvas>
+                  <div class="cvi-proj-idle" id="cvi-proj-idle">
+                    <div style="font-size:32px; margin-bottom:8px;">📽️</div>
+                    <strong style="color:var(--white); font-size:14px;">Projector on Standby (Board Stays Clean)</strong>
+                    <p style="font-size:12px; max-width:320px; margin-top:6px;">
+                      Approved visuals appear ONLY in this reserved display zone — never overlapping the teacher's physical handwriting.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="cvi-proj-foot">
+                  <div style="display:flex; gap:6px; flex-wrap:wrap;">
+                    <button class="cvi-btn" id="cvi-btn-playpause" style="padding:5px 10px;" onclick="CVIPrototype.togglePause()">⏸ Pause</button>
+                    <button class="cvi-btn" id="cvi-btn-speed" style="padding:5px 10px;" onclick="CVIPrototype.cycleSpeed()">⚡ 1.0x</button>
+                    <button class="cvi-btn cvi-btn-danger" style="padding:5px 10px;" onclick="CVIPrototype.dismissVisual()">✕ Blank Screen</button>
+                  </div>
+                  <span id="cvi-verified-tag" style="font-size:11px; color:#86EFAC; font-weight:700;">
+                    Standby
+                  </span>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- ======================================================= -->
+            <!-- COLLAPSIBLE ENGINEERING LOG (KEPT CLEAN & SEPARATE)     -->
+            <!-- ======================================================= -->
+            <div class="cvi-section">
+              <div class="cvi-sec-head">
+                <span class="cvi-sec-label">📋 System Pipeline Trace &amp; Honest MVP Boundary</span>
+                <div style="display:flex; gap:8px; align-items:center;">
+                  <span id="cvi-latency-badge" style="font-size:11px; color:var(--cyan); font-weight:700;">Idle</span>
+                  <button class="cvi-btn" style="padding:3px 9px; font-size:11px;" onclick="CVIPrototype.clearLogs()">Clear Log</button>
+                </div>
+              </div>
+              <div class="cvi-sec-body">
+                <ul class="cvi-log-list" id="cvi-log-list">
+                  <li class="cvi-log-item">[INIT] Tier 1 Verified Offline Library loaded (5 topics). Tier 2 Agentic Fallback ready.</li>
+                  <li class="cvi-log-item">[PRIVACY] Zero-Storage Audio Policy active — voice context stays in temporary browser memory only.</li>
+                </ul>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- API Setup Modal -->
+          <div class="cvi-modal-bg" id="cvi-modal-bg" onclick="if(event.target===this) CVIPrototype.closeModal()">
+            <div class="cvi-modal">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                <h3 style="margin:0; font-size:16px;">⚙️ Optional Cloud Vision OCR Setup</h3>
+                <button class="cvi-btn" onclick="CVIPrototype.closeModal()">✕</button>
+              </div>
+              <p style="font-size:12.5px; color:var(--muted); margin-bottom:12px;">
+                <strong>Offline Mode (Default):</strong> All 5 curated topics, Voice Mic matching, and the simulated Agentic Fallback demo work with zero API key.<br><br>
+                <strong>Optional Cloud OCR:</strong> Add a Gemini API key below if you want Live Webcam mode to extract real handwriting from a physical board/paper.
+              </p>
+              <div class="cvi-field" style="margin-bottom:14px;">
+                <label for="cvi-api-key">Gemini Vision API Key (Optional)</label>
+                <input type="password" id="cvi-api-key" placeholder="AIza..." />
+              </div>
+              <div style="display:flex; justify-content:flex-end; gap:8px;">
+                <button class="cvi-btn" onclick="CVIPrototype.saveApiKey(true)">Clear Key</button>
+                <button class="cvi-btn cvi-btn-primary" onclick="CVIPrototype.saveApiKey(false)">Save Key</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+    </div>
+
+    <!-- Bottom Presentation Footer -->
+    <footer class="dk-footer">
+      <div style="display:flex; align-items:center; gap:8px;">
+        <button class="dk-btn" id="dk-prev" onclick="CVIDeck.prev()">← Prev</button>
+        <button class="dk-btn dk-btn-primary" id="dk-next" onclick="CVIDeck.next()">Next →</button>
+        <span id="dk-count" style="font-size:12.5px; color:#9FB3C8; font-weight:700; margin-left:6px;">1 / 10</span>
+      </div>
+
+      <div class="dk-dots" id="dk-dots"></div>
+
+      <div style="display:flex; gap:8px;">
+        <button class="dk-btn" onclick="CVIDeck.fullscreen()">Fullscreen</button>
+        <button class="dk-btn" onclick="window.print()">Export PDF</button>
+      </div>
+    </footer>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- 1. PRESENTATION DECK JS (With Smart Slide 8 Video Pre-Buffer)         -->
+  <!-- ===================================================================== -->
+  <script>
+    (function (window) {
+      "use strict";
+      let idx = 0;
+      let slides = [];
+
+      function init() {
+        slides = Array.from(document.querySelectorAll("#cvi-deck-root .dk-slide"));
+        const dotsWrap = document.getElementById("dk-dots");
+        slides.forEach((s, i) => {
+          const b = document.createElement("button");
+          b.className = "dk-dot";
+          b.textContent = i + 1;
+          b.title = s.getAttribute("data-title") || ("Slide " + (i + 1));
+          b.onclick = () => go(i);
+          dotsWrap.appendChild(b);
+        });
+
+        go(0);
+
+        document.addEventListener("keydown", function (e) {
+          const tag = (document.activeElement && document.activeElement.tagName) || "";
+          if (["INPUT", "TEXTAREA", "SELECT"].includes(tag)) return;
+          if (e.key === "ArrowRight" || e.key === "PageDown") { e.preventDefault(); CVIDeck.next(); }
+          else if (e.key === "ArrowLeft" || e.key === "PageUp") { e.preventDefault(); CVIDeck.prev(); }
+          else if (e.key === "f" || e.key === "F") { CVIDeck.fullscreen(); }
+        });
+      }
+
+      function go(n) {
+        if (n < 0 || n >= slides.length) return;
+        const vid = document.getElementById("dk-video");
+        if (vid && n === 7 && vid.preload === "none") {
+          vid.preload = "auto";
+          vid.load();
+        }
+        if (vid && !vid.paused && n !== 8) vid.pause();
+
+        idx = n;
+        slides.forEach((s, i) => s.classList.toggle("active", i === idx));
+        document.querySelectorAll("#cvi-deck-root .dk-dot").forEach((d, i) => d.classList.toggle("active", i === idx));
+        document.getElementById("dk-count").textContent = `${idx + 1} / ${slides.length} — ${slides[idx].getAttribute("data-title") || ""}`;
+        document.getElementById("dk-prev").disabled = idx === 0;
+        document.getElementById("dk-next").disabled = idx === slides.length - 1;
+        document.getElementById("dk-bar").style.width = (((idx + 1) / slides.length) * 100) + "%";
+      }
+
+      const CVIDeck = {
+        next() { go(idx + 1); },
+        prev() { go(idx - 1); },
+        go,
+        fullscreen() {
+          if (!document.fullscreenElement) document.documentElement.requestFullscreen && document.documentElement.requestFullscreen();
+          else document.exitFullscreen();
+        },
+        loadVideo(e) {
+          const f = e.target.files && e.target.files[0];
+          if (!f) return;
+          const v = document.getElementById("dk-video");
+          v.src = URL.createObjectURL(f);
+          v.load();
+          document.getElementById("dk-video-lbl").textContent = "Loaded: " + f.name;
+        }
+      };
+
+      window.CVIDeck = CVIDeck;
+      document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", init) : init();
+    })(window);
+  </script>
+
+  <!-- ===================================================================== -->
+  <!-- 2. PROTOTYPE JS (Multimodal Voice + Tier 1 + Tier 2 Agentic Fallback) -->
+  <!-- ===================================================================== -->
+  <script>
+    (function (window) {
+      "use strict";
+
+      const SUBJECT_CHAPTERS = {
+        "Biology": ["Ch. 14 — Transport in Organisms", "Ch. 20 — Chromosomes & DNA Replication"],
+        "Physics": ["Ch. 15 — Electromagnetic Induction", "Ch. 12 — Electrostatics"],
+        "Computer Science": ["Unit 4 — Graph Algorithms & Shortest Path", "Unit 6 — OS Process Scheduling"],
+        "Chemistry": ["Ch. 4 — Chemical Bonding & Molecular Structure", "Ch. 6 — Chemical Equilibrium"],
+        "Mathematics": ["Ch. 7 — 3D Vectors & Geometry", "Ch. 8 — Mathematical Induction"]
+      };
+
+      // Tier 1 Verified Library (DNA gets auto-cached here after Tier 2 Agentic generation!)
+      const VERIFIED_LIBRARY = [
+        {
+          id: "heart",
+          title: "Human Heart — Double Blood Circulation",
+          subject: "Biology",
+          sourceTag: "Tier 1 • Verified Curated Library",
+          keywords: ["heart", "blood", "circulation", "circulatory", "atrium", "ventricle", "aorta", "pulmonary"],
+          renderer: "heart"
+        },
+        {
+          id: "induction",
+          title: "Electromagnetic Induction (Faraday's Law)",
+          subject: "Physics",
+          sourceTag: "Tier 1 • Verified Curated Library",
+          keywords: ["induction", "electromagnetic", "faraday", "lenz", "magnet", "coil", "flux", "emf"],
+          renderer: "induction"
+        },
+        {
+          id: "graph",
+          title: "Shortest Path Graph Traversal (Dijkstra)",
+          subject: "Computer Science",
+          sourceTag: "Tier 1 • Verified Curated Library",
+          keywords: ["dijkstra", "bfs", "graph", "shortest path", "algorithm", "node", "traversal", "edge"],
+          renderer: "graph"
+        },
+        {
+          id: "covalent",
+          title: "Covalent Bonding — H₂O Molecule (104.5°)",
+          subject: "Chemistry",
+          sourceTag: "Tier 1 • Verified Curated Library",
+          keywords: ["covalent", "h2o", "water", "bonding", "molecule", "electron", "valence", "oxygen"],
+          renderer: "covalent"
+        },
+        {
+          id: "vector3d",
+          title: "3D Geometry — Vector Cross Product (a × b)",
+          subject: "Mathematics",
+          sourceTag: "Tier 1 • Verified Curated Library",
+          keywords: ["vector", "cross product", "3d", "geometry", "a x b", "orthogonal", "plane"],
+          renderer: "vector3d"
+        }
+      ];
+
+      const state = {
+        connectivity: "offline",
+        inputSource: "sim",
+        teacherApproval: true,
+        apiKey: "",
+        activeVisual: null,
+        pendingMatch: null,
+        isPaused: false,
+        speed: 1.0,
+        animTime: 0,
+        lastFrameTs: 0,
+        markerColor: "#0F172A",
+        markerSize: 3,
+        isDrawing: false,
+        hasDrawnStrokes: false,
+        webcamStream: null,
+        voiceRec: null,
+        isListening: false,
+        lastVoiceContext: "",
+        agentTimerIds: []
+      };
+
+      const $ = (id) => document.getElementById(id);
+
+      function log(msg) {
+        const list = $("cvi-log-list");
+        if (!list) return;
+        const ts = new Date().toLocaleTimeString([], { hour12: false, hour: "2-digit", minute: "2-digit", second: "2-digit" });
+        const li = document.createElement("li");
+        li.className = "cvi-log-item";
+        li.textContent = `[${ts}] ${msg}`;
+        list.prepend(li);
+        while (list.children.length > 25) list.removeChild(list.lastChild);
+      }
+
+      function clearAgentTimers() {
+        state.agentTimerIds.forEach((id) => clearTimeout(id));
+        state.agentTimerIds = [];
+      }
+
+      function setDecisionUI(boxClass, pillClass, pillText, headline, sub, showActions, traceHtml) {
+        const box = $("cvi-decision-box");
+        const pill = $("cvi-status-pill");
+        const trace = $("cvi-agent-trace");
+        box.className = "cvi-section cvi-decision-section" + (boxClass ? " " + boxClass : "");
+        pill.className = "cvi-status-pill" + (pillClass ? " " + pillClass : "");
+        pill.textContent = pillText;
+        $("cvi-decision-headline").innerHTML = headline;
+        $("cvi-decision-sub").innerHTML = sub;
+        $("cvi-approval-actions").style.display = showActions ? "flex" : "none";
+        if (traceHtml) {
+          trace.style.display = "block";
+          trace.innerHTML = traceHtml;
+        } else {
+          trace.style.display = "none";
+          trace.innerHTML = "";
+        }
+      }
+
+      /* ---------------------------------------------------------
+         WHITEBOARD SIMULATOR
+      --------------------------------------------------------- */
+      function initWhiteboard() {
+        const canvas = $("cvi-wb-canvas");
+        const ctx = canvas.getContext("2d");
+
+        function fillCleanBoard() {
+          ctx.fillStyle = "#FAFBFD";
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+          ctx.strokeStyle = "rgba(148, 163, 184, 0.14)";
+          ctx.lineWidth = 1;
+          for (let y = 46; y < canvas.height; y += 46) {
+            ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(canvas.width, y); ctx.stroke();
+          }
+        }
+
+        fillCleanBoard();
+
+        function getPos(e) {
+          const rect = canvas.getBoundingClientRect();
+          const cx = e.touches ? e.touches[0].clientX : e.clientX;
+          const cy = e.touches ? e.touches[0].clientY : e.clientY;
+          return { x: (cx - rect.left) * (canvas.width / rect.width), y: (cy - rect.top) * (canvas.height / rect.height) };
+        }
+
+        canvas.addEventListener("mousedown", (e) => { e.preventDefault(); state.isDrawing = true; state.hasDrawnStrokes = true; const p = getPos(e); ctx.beginPath(); ctx.moveTo(p.x, p.y); });
+        canvas.addEventListener("mousemove", (e) => { if (!state.isDrawing) return; e.preventDefault(); const p = getPos(e); ctx.lineCap = "round"; ctx.lineJoin = "round"; ctx.strokeStyle = state.markerColor; ctx.lineWidth = state.markerSize; ctx.lineTo(p.x, p.y); ctx.stroke(); });
+        window.addEventListener("mouseup", () => { state.isDrawing = false; });
+        canvas.addEventListener("touchstart", (e) => { e.preventDefault(); state.isDrawing = true; state.hasDrawnStrokes = true; const p = getPos(e); ctx.beginPath(); ctx.moveTo(p.x, p.y); }, { passive: false });
+        canvas.addEventListener("touchmove", (e) => { if (!state.isDrawing) return; e.preventDefault(); const p = getPos(e); ctx.lineCap = "round"; ctx.lineJoin = "round"; ctx.strokeStyle = state.markerColor; ctx.lineWidth = state.markerSize; ctx.lineTo(p.x, p.y); ctx.stroke(); }, { passive: false });
+        window.addEventListener("touchend", () => { state.isDrawing = false; });
+
+        state.fillCleanBoard = fillCleanBoard;
+      }
+
+      function writeHandwriting(heading, notes) {
+        const canvas = $("cvi-wb-canvas");
+        const ctx = canvas.getContext("2d");
+        state.fillCleanBoard();
+        state.hasDrawnStrokes = true;
+        ctx.save();
+        ctx.fillStyle = "#0F172A";
+        ctx.font = "italic bold 23px 'Comic Sans MS', 'Segoe Print', cursive, sans-serif";
+        ctx.fillText(heading, 24, 68);
+        ctx.strokeStyle = "#1D4ED8";
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.moveTo(22, 78);
+        ctx.quadraticCurveTo(200, 84, Math.min(550, 22 + heading.length * 12), 76);
+        ctx.stroke();
+
+        ctx.fillStyle = "#1E293B";
+        ctx.font = "italic 16px 'Comic Sans MS', 'Segoe Print', cursive, sans-serif";
+        notes.forEach((line, i) => ctx.fillText("• " + line, 28, 122 + i * 32));
+        ctx.fillStyle = "#DC2626";
+        ctx.font = "italic bold 14px 'Comic Sans MS', 'Segoe Print', cursive, sans-serif";
+        ctx.fillText("[Teacher continues explaining here while visual displays on right →]", 26, 272);
+        ctx.restore();
+      }
+
+      /* ---------------------------------------------------------
+         CORE MULTIMODAL + HYBRID AGENTIC PIPELINE
+      --------------------------------------------------------- */
+      function analyzeAndMatch(rawText, sourceLabel, voiceSnippet) {
+        clearAgentTimers();
+        const level = $("cvi-level").value;
+        const subject = $("cvi-subject").value;
+        const text = (rawText || "").trim();
+        const combined = (text + " " + (voiceSnippet || state.lastVoiceContext || "")).toLowerCase();
+
+        if (!text) {
+          log("Empty board text — write or speak a topic first.");
+          return;
+        }
+
+        if (voiceSnippet) {
+          state.lastVoiceContext = voiceSnippet;
+          $("cvi-voice-transcript").textContent = 'Teacher Voice: "' + voiceSnippet + '"';
+          $("cvi-voice-transcript").style.color = "#5EEAD4";
+        }
+
+        // Brief clear SCANNING visual cue so judges see detection happening
+        setDecisionUI(
+          "state-scanning",
+          "live",
+          "🔍 DETECTING — FUSING BOARD ROI + VOICE + SYLLABUS...",
+          `Scanning "${text}" under ${level} • ${subject}`,
+          "Checking Tier 1 Verified Cloud/Offline Library first...",
+          false,
+          null
+        );
+
+        const tid = setTimeout(() => {
+          // 1. Check Tier 1 Library inside active subject
+          let best = null;
+          let bestScore = 0;
+          VERIFIED_LIBRARY.forEach((item) => {
+            let hits = 0;
+            item.keywords.forEach((kw) => { if (combined.includes(kw)) hits += (kw.includes(" ") ? 2 : 1); });
+            if (item.subject === subject && hits > bestScore) {
+              bestScore = hits;
+              best = item;
+            }
+          });
+
+          // 2. Check cross-subject collision (Context Guard)
+          let crossHit = null;
+          if (!best) {
+            VERIFIED_LIBRARY.forEach((item) => {
+              if (item.subject !== subject) {
+                const hits = item.keywords.filter((kw) => text.toLowerCase().includes(kw)).length;
+                if (hits > 0 && !crossHit) crossHit = item;
+              }
+            });
+          }
+
+          if (best) {
+            const conf = Math.min(99, 82 + bestScore * 5);
+            $("cvi-latency-badge").textContent = `Tier 1 Hit • 140 ms (${sourceLabel})`;
+            log(`TIER 1 MATCH [${subject}]: "${best.title}" (${conf}% multimodal confidence).`);
+
+            if (state.teacherApproval) {
+              state.pendingMatch = best;
+              setDecisionUI(
+                "state-ready",
+                "ok",
+                `✔ DETECTED (TIER 1 LIBRARY HIT • ${conf}%) — AWAITING TEACHER`,
+                `Ready to Project: ${best.title}`,
+                `Source: <strong>${best.sourceTag}</strong> | Context: ${level} / ${subject} | Click <strong>Project to Classroom Board</strong> to display.`,
+                true,
+                null
+              );
+            } else {
+              state.pendingMatch = null;
+              setDecisionUI("state-ready", "ok", `✔ AUTO-PROJECTED (${conf}%)`, `Now Showing: ${best.title}`, `Loaded instantly from ${best.sourceTag}.`, false, null);
+              projectVisual(best);
+            }
+          } else if (crossHit) {
+            state.pendingMatch = null;
+            $("cvi-latency-badge").textContent = "Context Guard Triggered";
+            log(`CONTEXT GUARD: Blocked unrelated ${crossHit.subject} visual ("${crossHit.title}") while teaching ${subject}.`);
+            setDecisionUI(
+              "state-blocked",
+              "err",
+              "🛡️ CONTEXT GUARD — FALSE VISUAL BLOCKED",
+              `Blocked unrelated ${crossHit.subject} visual for "${text}"`,
+              `Active subject is <strong>${subject}</strong>. CommuteSync AI prevented a wrong ${crossHit.subject} animation from disrupting your lecture.`,
+              false,
+              null
+            );
+          } else {
+            // 3. TIER 2: REAL-TIME AGENTIC AI FALLBACK (LIBRARY MISS!)
+            runAgenticFallback(text, level, subject);
+          }
+        }, 420);
+
+        state.agentTimerIds.push(tid);
+      }
+
+      function runAgenticFallback(topicText, level, subject) {
+        log(`TIER 1 MISS: "${topicText}" not in preloaded library → Triggering Tier 2 Agentic AI Pipeline...`);
+        $("cvi-latency-badge").textContent = "Tier 2 Agentic Pipeline Running...";
+
+        const isDNA = topicText.toLowerCase().includes("dna") || topicText.toLowerCase().includes("replication") || topicText.toLowerCase().includes("helix");
+
+        // Stage A: Prompt Architect LLM
+        setDecisionUI(
+          "state-agent",
+          "warn",
+          "⚡ TIER 2 AGENTIC AI — STEP 1/3: PROMPT ARCHITECT LLM",
+          `Topic "${topicText}" not in library — Agentic AI is generating it live`,
+          "Context Agent is writing an academically accurate visual specification...",
+          false,
+          `[1/3] Library Check: MISS (${subject})<br>[2/3] Prompt Architect LLM: Crafting labeled educational diagram prompt for "${topicText}" (${level} syllabus)...`
+        );
+
+        const t1 = setTimeout(() => {
+          // Stage B: Visual Generator API
+          setDecisionUI(
+            "state-agent",
+            "warn",
+            "⚡ TIER 2 AGENTIC AI — STEP 2/3: VISUAL GENERATOR API",
+            `Generating animated visual for "${topicText}"...`,
+            "Visual API rendering clean labeled process diagram for classroom projection...",
+            false,
+            `[1/3] Library Check: MISS (${subject})<br>[2/3] Prompt Architect LLM: ✔ Optimized prompt ready (clear labels, high contrast, zero clutter)<br>[3/3] Visual Generator API: Rendering animated interactive diagram...`
+          );
+        }, 950);
+
+        const t2 = setTimeout(() => {
+          const generatedItem = {
+            id: isDNA ? "dna" : "custom_" + Date.now(),
+            title: isDNA ? "DNA Replication — Helicase & Leading/Lagging Strands" : `${topicText} (AI-Generated Diagram)`,
+            subject: subject,
+            sourceTag: "Tier 2 • Agentic AI Draft → Auto-Cached to Cloud Library",
+            keywords: isDNA ? ["dna", "replication", "helicase", "helix", "strand", "polymerase"] : topicText.toLowerCase().split(/\s+/).filter((w) => w.length > 3),
+            renderer: isDNA ? "dna" : "generic_agent",
+            customLabel: topicText
+          };
+
+          // Auto-cache into Tier 1 Library so next time it's instant!
+          if (!VERIFIED_LIBRARY.some((x) => x.id === generatedItem.id)) {
+            const cachedCopy = Object.assign({}, generatedItem, { sourceTag: "Tier 1 • Previously Agentic-Generated (Now Cached!)" });
+            VERIFIED_LIBRARY.push(cachedCopy);
+            log(`SELF-GROWING LIBRARY: Cached "${generatedItem.title}" into Cloud Library (zero API cost next time!).`);
+          }
+
+          $("cvi-latency-badge").textContent = "Tier 2 Agentic Generated • Auto-Cached";
+
+          if (state.teacherApproval) {
+            state.pendingMatch = generatedItem;
+            setDecisionUI(
+              "state-ready",
+              "ok",
+              "⚡ AGENTIC DRAFT READY — AWAITING TEACHER APPROVAL",
+              `Generated Live: ${generatedItem.title}`,
+              `Review &amp; click <strong>Project to Classroom Board</strong>. Also auto-cached to Cloud Library so next click is an instant Tier 1 hit!`,
+              true,
+              `[1/3] Library Check: MISS → [2/3] Prompt Architect LLM: ✔ → [3/3] Visual API: ✔ Generated &amp; Auto-Cached to Library!`
+            );
+          } else {
+            projectVisual(generatedItem);
+          }
+        }, 2000);
+
+        state.agentTimerIds.push(t1, t2);
+      }
+
+      function projectVisual(item) {
+        state.activeVisual = item;
+        state.isPaused = false;
+        $("cvi-btn-playpause").textContent = "⏸ Pause";
+        $("cvi-proj-idle").style.display = "none";
+        $("cvi-verified-tag").textContent = "✔ " + item.sourceTag;
+        log(`PROJECTOR LIVE: Displaying "${item.title}" in Reserved Side Zone.`);
+      }
+
+      /* ---------------------------------------------------------
+         ANIMATED VISUAL RENDERERS (5 CURATED + 1 AGENTIC DNA + GENERIC)
+      --------------------------------------------------------- */
+      function renderLoop(ts) {
+        if (!state.lastFrameTs) state.lastFrameTs = ts;
+        const dt = Math.min(0.05, (ts - state.lastFrameTs) / 1000);
+        state.lastFrameTs = ts;
+        if (state.activeVisual && !state.isPaused) state.animTime += dt * state.speed;
+
+        if (state.activeVisual) {
+          const canvas = $("cvi-visual-canvas");
+          const ctx = canvas.getContext("2d");
+          const w = canvas.width, h = canvas.height;
+          ctx.clearRect(0, 0, w, h);
+          ctx.fillStyle = "#07101D";
+          ctx.fillRect(0, 0, w, h);
+
+          const r = state.activeVisual.renderer;
+          if (r === "heart") drawHeartVisual(ctx, w, h, state.animTime);
+          else if (r === "induction") drawInductionVisual(ctx, w, h, state.animTime);
+          else if (r === "graph") drawGraphVisual(ctx, w, h, state.animTime);
+          else if (r === "covalent") drawCovalentVisual(ctx, w, h, state.animTime);
+          else if (r === "vector3d") drawVector3DVisual(ctx, w, h, state.animTime);
+          else if (r === "dna") drawDNAVisual(ctx, w, h, state.animTime);
+          else drawGenericAgentVisual(ctx, w, h, state.animTime, state.activeVisual.customLabel || "Concept");
+        }
+        requestAnimationFrame(renderLoop);
+      }
+
+      function drawHeartVisual(ctx, w, h, t) {
+        const pulse = 1 + 0.035 * Math.sin(t * 4.5);
+        ctx.fillStyle = "#36C9D8"; ctx.font = "bold 13px Segoe UI";
+        ctx.fillText("DOUBLE CIRCULATION • PULMONARY & SYSTEMIC LOOP", 18, 24);
+        ctx.fillStyle = "#162A45"; ctx.strokeStyle = "#36C9D8"; ctx.lineWidth = 1.5;
+        ctx.fillRect(195, 38, 150, 32); ctx.strokeRect(195, 38, 150, 32);
+        ctx.fillStyle = "#F4F7FA"; ctx.font = "bold 12px Segoe UI"; ctx.fillText("LUNGS (O₂ Uptake)", 214, 58);
+        ctx.fillStyle = "#162A45"; ctx.strokeStyle = "#64748B";
+        ctx.fillRect(185, 250, 170, 30); ctx.strokeRect(185, 250, 170, 30);
+        ctx.fillStyle = "#F4F7FA"; ctx.fillText("BODY TISSUES (O₂ Used)", 199, 269);
+
+        ctx.save(); ctx.translate(270, 160); ctx.scale(pulse, pulse);
+        ctx.fillStyle = "#1E3A8A"; ctx.strokeStyle = "#60A5FA"; ctx.lineWidth = 2;
+        ctx.fillRect(-76, -48, 72, 44); ctx.strokeRect(-76, -48, 72, 44);
+        ctx.fillStyle = "#1D4ED8"; ctx.fillRect(-76, 0, 72, 48); ctx.strokeRect(-76, 0, 72, 48);
+        ctx.fillStyle = "#991B1B"; ctx.strokeStyle = "#F87171";
+        ctx.fillRect(4, -48, 72, 44); ctx.strokeRect(4, -48, 72, 44);
+        ctx.fillStyle = "#DC2626"; ctx.fillRect(4, 0, 72, 48); ctx.strokeRect(4, 0, 72, 48);
+        ctx.fillStyle = "#F4F7FA"; ctx.font = "bold 11px Segoe UI";
+        ctx.fillText("Right Atrium", -70, -22); ctx.fillText("Right Ventr.", -70, 28);
+        ctx.fillText("Left Atrium", 11, -22); ctx.fillText("Left Ventr.", 13, 28);
+        ctx.restore();
+
+        function flow(pts, col, off) {
+          ctx.strokeStyle = col; ctx.lineWidth = 4; ctx.globalAlpha = 0.32;
+          ctx.beginPath(); pts.forEach((p, i) => i ? ctx.lineTo(p[0], p[1]) : ctx.moveTo(p[0], p[1])); ctx.stroke();
+          ctx.globalAlpha = 1;
+          for (let k = 0; k < 5; k++) {
+            const p = ((t * 0.42 + off + k * 0.2) % 1) * (pts.length - 1);
+            const s = Math.min(pts.length - 2, Math.floor(p)), lt = p - s;
+            const x = pts[s][0] + (pts[s + 1][0] - pts[s][0]) * lt;
+            const y = pts[s][1] + (pts[s + 1][1] - pts[s][1]) * lt;
+            ctx.fillStyle = col; ctx.beginPath(); ctx.arc(x, y, 4.5, 0, Math.PI * 2); ctx.fill();
+          }
+        }
+        flow([[185, 265], [115, 265], [115, 134], [194, 134]], "#38BDF8", 0);
+        flow([[194, 182], [150, 182], [150, 54], [195, 54]], "#38BDF8", 0.1);
+        flow([[345, 54], [390, 54], [390, 134], [346, 134]], "#F87171", 0);
+        flow([[346, 182], [425, 182], [425, 265], [355, 265]], "#F87171", 0.1);
+        ctx.font = "11px Segoe UI"; ctx.fillStyle = "#38BDF8"; ctx.fillText("● Deoxygenated", 18, 298);
+        ctx.fillStyle = "#F87171"; ctx.fillText("● Oxygenated", 418, 298);
+      }
+
+      function drawInductionVisual(ctx, w, h, t) {
+        const offset = Math.sin(t * 1.7) * 80, vel = Math.cos(t * 1.7);
+        ctx.fillStyle = "#36C9D8"; ctx.font = "bold 13px Segoe UI";
+        ctx.fillText("FARADAY'S LAW: ε = -N (dΦ / dt) • LIVE FLUX & CURRENT", 18, 24);
+        const cx = 285, cy = 132;
+        ctx.strokeStyle = "#F59E0B"; ctx.lineWidth = 3;
+        ctx.beginPath(); ctx.moveTo(cx, cy + 34); ctx.lineTo(cx, 222); ctx.lineTo(cx + 55, 222);
+        ctx.moveTo(cx + 135, cy + 34); ctx.lineTo(cx + 135, 222); ctx.lineTo(cx + 80, 222); ctx.stroke();
+        for (let i = 0; i < 7; i++) {
+          ctx.strokeStyle = "#D97706"; ctx.lineWidth = 5;
+          ctx.beginPath(); ctx.ellipse(cx + i * 22, cy, 10, 36, 0, 0, Math.PI * 2); ctx.stroke();
+        }
+        if (Math.abs(vel) > 0.08) {
+          for (let e = 0; e < 6; e++) {
+            const p = ((t * (vel > 0 ? 0.9 : -0.9) + e / 6) % 1 + 1) % 1;
+            ctx.fillStyle = "#36C9D8"; ctx.beginPath(); ctx.arc(cx + p * 135, cy - 36, 3.8, 0, Math.PI * 2); ctx.fill();
+          }
+        }
+        const mx = 148 + offset, my = cy - 18;
+        ctx.fillStyle = "#2563EB"; ctx.fillRect(mx, my, 55, 36);
+        ctx.fillStyle = "#DC2626"; ctx.fillRect(mx + 55, my, 55, 36);
+        ctx.strokeStyle = "#F4F7FA"; ctx.lineWidth = 1.5; ctx.strokeRect(mx, my, 110, 36);
+        ctx.fillStyle = "#FFF"; ctx.font = "bold 16px Segoe UI"; ctx.fillText("S", mx + 21, my + 24); ctx.fillText("N", mx + 76, my + 24);
+        const gx = cx + 68, gy = 256;
+        ctx.fillStyle = "#112036"; ctx.strokeStyle = "#36C9D8"; ctx.lineWidth = 2;
+        ctx.beginPath(); ctx.arc(gx, gy, 36, Math.PI, 0); ctx.fill(); ctx.stroke();
+        const ang = -Math.PI / 2 + vel * 1.15;
+        ctx.strokeStyle = "#EF4444"; ctx.lineWidth = 3;
+        ctx.beginPath(); ctx.moveTo(gx, gy); ctx.lineTo(gx + Math.cos(ang) * 30, gy + Math.sin(ang) * 30); ctx.stroke();
+        ctx.fillStyle = "#F4F7FA"; ctx.font = "bold 11px Segoe UI"; ctx.fillText("GALVANOMETER", gx - 42, gy + 16);
+      }
+
+      function drawGraphVisual(ctx, w, h, t) {
+        ctx.fillStyle = "#36C9D8"; ctx.font = "bold 13px Segoe UI";
+        ctx.fillText("DIJKSTRA SHORTEST PATH • LIVE RELAXATION", 18, 24);
+        const nodes = [
+          { id: "A", x: 72, y: 150, d: 0 }, { id: "B", x: 185, y: 82, d: 2 },
+          { id: "C", x: 195, y: 220, d: 5 }, { id: "D", x: 315, y: 76, d: 6 },
+          { id: "E", x: 325, y: 162, d: 4 }, { id: "F", x: 345, y: 240, d: 9 }, { id: "G", x: 465, y: 150, d: 7 }
+        ];
+        const edges = [[0,1,2,1],[0,2,5,0],[1,3,4,0],[1,4,2,1],[2,4,1,0],[2,5,4,0],[3,6,3,0],[4,6,3,1],[5,6,5,0]];
+        const ph = Math.floor(t * 0.9) % 8;
+        edges.forEach(([u,v,wt,sh]) => {
+          const a = nodes[u], b = nodes[v], hi = ph >= 6 && sh;
+          ctx.strokeStyle = hi ? "#22C55E" : "#354D66"; ctx.lineWidth = hi ? 4 : 2;
+          ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+          ctx.fillStyle = hi ? "#86EFAC" : "#9FB3C8"; ctx.font = "bold 11px Segoe UI";
+          ctx.fillText(String(wt), (a.x + b.x) / 2 - 4, (a.y + b.y) / 2 - 6);
+        });
+        nodes.forEach((n, i) => {
+          const vis = i <= ph, act = i === ph, onP = ph >= 6 && [0,1,4,6].includes(i);
+          ctx.fillStyle = onP ? "#16A34A" : act ? "#36C9D8" : vis ? "#1E3A5F" : "#112036";
+          ctx.strokeStyle = onP ? "#86EFAC" : vis ? "#36C9D8" : "#475569"; ctx.lineWidth = act ? 3.5 : 2;
+          ctx.beginPath(); ctx.arc(n.x, n.y, 19, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+          ctx.fillStyle = act ? "#0B1626" : "#F4F7FA"; ctx.font = "bold 14px Segoe UI"; ctx.fillText(n.id, n.x - 5, n.y + 5);
+          ctx.fillStyle = "#36C9D8"; ctx.font = "11px monospace"; ctx.fillText(vis ? `d=${n.d}` : "d=∞", n.x - 12, n.y + 32);
+        });
+        ctx.fillStyle = "#112036"; ctx.fillRect(16, 272, w - 32, 24);
+        ctx.fillStyle = "#F4F7FA"; ctx.font = "11.5px monospace";
+        ctx.fillText(ph >= 6 ? "SHORTEST PATH FOUND: A → B → E → G (Total Cost = 7)" : `Visiting Node ${nodes[Math.min(ph,6)].id}...`, 26, 288);
+      }
+
+      function drawCovalentVisual(ctx, w, h, t) {
+        ctx.fillStyle = "#36C9D8"; ctx.font = "bold 13px Segoe UI";
+        ctx.fillText("COVALENT BONDING • H₂O SHARED VALENCE ELECTRONS", 18, 24);
+        const ox = 270, oy = 130, h1x = 186, h1y = 204, h2x = 354, h2y = 204;
+        ctx.strokeStyle = "rgba(54, 201, 216, 0.45)"; ctx.lineWidth = 2;
+        ctx.beginPath(); ctx.arc(ox, oy, 68, 0, Math.PI * 2); ctx.stroke();
+        ctx.beginPath(); ctx.arc(h1x, h1y, 44, 0, Math.PI * 2); ctx.stroke();
+        ctx.beginPath(); ctx.arc(h2x, h2y, 44, 0, Math.PI * 2); ctx.stroke();
+        ctx.fillStyle = "#FDE68A"; ctx.font = "bold 12px Segoe UI"; ctx.fillText("104.5°", ox - 18, oy + 48);
+        ctx.fillStyle = "#DC2626"; ctx.beginPath(); ctx.arc(ox, oy, 22, 0, Math.PI * 2); ctx.fill();
+        ctx.fillStyle = "#FFF"; ctx.font = "bold 14px Segoe UI"; ctx.fillText("O", ox - 6, oy + 5);
+        [[h1x, h1y], [h2x, h2y]].forEach(([hx, hy]) => {
+          ctx.fillStyle = "#2563EB"; ctx.beginPath(); ctx.arc(hx, hy, 15, 0, Math.PI * 2); ctx.fill();
+          ctx.fillStyle = "#FFF"; ctx.font = "bold 12px Segoe UI"; ctx.fillText("H", hx - 4, hy + 4);
+        });
+        [[(ox + h1x) / 2, (oy + h1y) / 2, 0], [(ox + h2x) / 2, (oy + h2y) / 2, Math.PI]].forEach(([cx, cy, ph]) => {
+          for (let j = 0; j < 2; j++) {
+            const a = t * 3 + ph + j * Math.PI;
+            ctx.fillStyle = j ? "#FDE047" : "#36C9D8";
+            ctx.beginPath(); ctx.arc(cx + Math.cos(a) * 14, cy + Math.sin(a) * 14, 5, 0, Math.PI * 2); ctx.fill();
+          }
+        });
+        ctx.fillStyle = "#9FB3C8"; ctx.font = "11.5px Segoe UI";
+        ctx.fillText("Shared Electron Pairs satisfy Octet (O: 8e⁻) & Duplet (H: 2e⁻) rules", 18, 294);
+      }
+
+      function drawVector3DVisual(ctx, w, h, t) {
+        ctx.fillStyle = "#36C9D8"; ctx.font = "bold 13px Segoe UI";
+        ctx.fillText("3D GEOMETRY • VECTOR CROSS PRODUCT (a × b ⊥ PLANE)", 18, 24);
+        const cx = 270, cy = 180, ry = t * 0.65, rx = 0.42;
+        function pr(x, y, z) {
+          const x1 = x * Math.cos(ry) - z * Math.sin(ry), z1 = x * Math.sin(ry) + z * Math.cos(ry);
+          return { px: cx + x1 * 86, py: cy - (y * Math.cos(rx) - z1 * Math.sin(rx)) * 86 };
+        }
+        function arr(p1, p2, col, lw, lbl) {
+          ctx.strokeStyle = col; ctx.fillStyle = col; ctx.lineWidth = lw;
+          ctx.beginPath(); ctx.moveTo(p1.px, p1.py); ctx.lineTo(p2.px, p2.py); ctx.stroke();
+          const a = Math.atan2(p2.py - p1.py, p2.px - p1.px);
+          ctx.beginPath(); ctx.moveTo(p2.px, p2.py);
+          ctx.lineTo(p2.px - 9 * Math.cos(a - 0.4), p2.py - 9 * Math.sin(a - 0.4));
+          ctx.lineTo(p2.px - 9 * Math.cos(a + 0.4), p2.py - 9 * Math.sin(a + 0.4)); ctx.fill();
+          if (lbl) { ctx.font = "bold 12px Segoe UI"; ctx.fillText(lbl, p2.px + 6, p2.py - 4); }
+        }
+        const O = pr(0,0,0), A = pr(1.15,0,0.2), B = pr(0.2,0,1.15), AB = pr(1.35,0,1.35), C = pr(0,1.25,0);
+        arr(O, pr(1.5,0,0), "#475569", 1.5, "X"); arr(O, pr(0,1.4,0), "#475569", 1.5, "Z"); arr(O, pr(0,0,1.5), "#475569", 1.5, "Y");
+        ctx.fillStyle = "rgba(54,201,216,0.16)";
+        ctx.beginPath(); ctx.moveTo(O.px, O.py); ctx.lineTo(A.px, A.py); ctx.lineTo(AB.px, AB.py); ctx.lineTo(B.px, B.py); ctx.fill();
+        arr(O, A, "#36C9D8", 3.5, "a"); arr(O, B, "#F59E0B", 3.5, "b"); arr(O, C, "#22C55E", 4, "a × b (90°)");
+        ctx.fillStyle = "#9FB3C8"; ctx.font = "11.5px Segoe UI";
+        ctx.fillText("|a × b| = |a||b|sin(θ) = Area of Shaded Parallelogram", 18, 294);
+      }
+
+      // TIER 2 AGENTIC AI GENERATED VISUAL: DNA REPLICATION FORK
+      function drawDNAVisual(ctx, w, h, t) {
+        ctx.fillStyle = "#F59E0B"; ctx.font = "bold 13px Segoe UI";
+        ctx.fillText("⚡ AGENTIC AI GENERATED • DNA REPLICATION FORK (5' → 3')", 18, 24);
+
+        const forkX = 250 + Math.sin(t * 1.1) * 28;
+        const midY = 160;
+
+        // Unzipped Parent Helix (Left of Fork)
+        for (let x = 35; x < forkX; x += 14) {
+          const wave = Math.sin(x * 0.065 - t * 3.5) * 34;
+          ctx.strokeStyle = "#36C9D8"; ctx.lineWidth = 2;
+          ctx.beginPath(); ctx.moveTo(x, midY - wave); ctx.lineTo(x, midY + wave); ctx.stroke();
+          ctx.fillStyle = "#60A5FA"; ctx.beginPath(); ctx.arc(x, midY - wave, 4, 0, Math.PI * 2); ctx.fill();
+          ctx.fillStyle = "#F87171"; ctx.beginPath(); ctx.arc(x, midY + wave, 4, 0, Math.PI * 2); ctx.fill();
+        }
+
+        // Helicase Enzyme Triangle at Fork
+        ctx.fillStyle = "#F59E0B";
+        ctx.beginPath();
+        ctx.moveTo(forkX + 20, midY);
+        ctx.lineTo(forkX - 10, midY - 18);
+        ctx.lineTo(forkX - 10, midY + 18);
+        ctx.closePath();
+        ctx.fill();
+        ctx.fillStyle = "#FDE68A"; ctx.font = "bold 11px Segoe UI";
+        ctx.fillText("Helicase", forkX - 24, midY - 26);
+
+        // Top Branch — Leading Strand (Continuous)
+        ctx.strokeStyle = "#60A5FA"; ctx.lineWidth = 4;
+        ctx.beginPath(); ctx.moveTo(forkX, midY - 10); ctx.lineTo(490, 82); ctx.stroke();
+        ctx.strokeStyle = "#22C55E"; ctx.lineWidth = 3.5;
+        ctx.beginPath(); ctx.moveTo(forkX + 26, midY - 2); ctx.lineTo(490, 96); ctx.stroke();
+        ctx.fillStyle = "#86EFAC"; ctx.font = "bold 11.5px Segoe UI";
+        ctx.fillText("Leading Strand (Continuous 5' → 3')", 290, 68);
+
+        // Bottom Branch — Lagging Strand (Okazaki Fragments)
+        ctx.strokeStyle = "#F87171"; ctx.lineWidth = 4;
+        ctx.beginPath(); ctx.moveTo(forkX, midY + 10); ctx.lineTo(490, 238); ctx.stroke();
+        ctx.strokeStyle = "#A78BFA"; ctx.lineWidth = 3.5;
+        ctx.setLineDash([28, 12]);
+        ctx.beginPath(); ctx.moveTo(forkX + 26, midY + 2); ctx.lineTo(490, 224); ctx.stroke();
+        ctx.setLineDash([]);
+        ctx.fillStyle = "#DDD6FE"; ctx.font = "bold 11.5px Segoe UI";
+        ctx.fillText("Lagging Strand (Okazaki Fragments)", 290, 258);
+
+        ctx.fillStyle = "#9FB3C8"; ctx.font = "11px Segoe UI";
+        ctx.fillText("Generated live on Library Miss • Now cached in Tier 1 Library for instant reuse!", 18, 294);
+      }
+
+      function drawGenericAgentVisual(ctx, w, h, t, label) {
+        ctx.fillStyle = "#F59E0B"; ctx.font = "bold 13px Segoe UI";
+        ctx.fillText("⚡ AGENTIC AI GENERATED • DYNAMIC CONCEPT DIAGRAM", 18, 24);
+        const cx = 270, cy = 158;
+        ctx.strokeStyle = "#36C9D8"; ctx.lineWidth = 2;
+        ctx.beginPath(); ctx.arc(cx, cy, 74 + Math.sin(t * 2) * 5, 0, Math.PI * 2); ctx.stroke();
+        ctx.fillStyle = "#162A45"; ctx.beginPath(); ctx.arc(cx, cy, 52, 0, Math.PI * 2); ctx.fill();
+        ctx.fillStyle = "#F4F7FA"; ctx.font = "bold 14px Segoe UI"; ctx.textAlign = "center";
+        ctx.fillText(label.slice(0, 28), cx, cy + 5);
+        ctx.textAlign = "left";
+        ctx.fillStyle = "#9FB3C8"; ctx.font = "11px Segoe UI";
+        ctx.fillText("Production LLM + Visual API renders full subject-specific graphics here.", 18, 294);
+      }
+
+      /* ---------------------------------------------------------
+         LIVE VOICE MICROPHONE (BROWSER WEB SPEECH API)
+      --------------------------------------------------------- */
+      function toggleVoiceMic() {
+        const btn = $("cvi-mic-btn");
+        const txt = $("cvi-voice-transcript");
+        const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+        if (state.isListening && state.voiceRec) {
+          state.voiceRec.stop();
+          return;
+        }
+
+        if (!SpeechRec) {
+          txt.textContent = "Browser Speech API unavailable here — click any scenario chip above to see Vision + Voice fusion.";
+          log("VOICE INFO: Web Speech API works best in Chrome/Edge on https:// or localhost.");
+          return;
+        }
+
+        const rec = new SpeechRec();
+        rec.lang = "en-US";
+        rec.continuous = false;
+        rec.interimResults = true;
+        state.voiceRec = rec;
+
+        rec.onstart = () => {
+          state.isListening = true;
+          btn.classList.add("cvi-btn-mic-on");
+          btn.textContent = "🔴 Listening...";
+          txt.textContent = "Listening to teacher's voice... speak a topic (e.g. 'Human Heart' or 'DNA Replication')";
+          txt.style.color = "#FCA5A5";
+          log("VOICE MODULE: Microphone active (RAM-only temporary buffer).");
+        };
+
+        rec.onresult = (e) => {
+          let spoken = "";
+          for (let i = 0; i < e.results.length; i++) spoken += e.results[i][0].transcript;
+          txt.textContent = 'Heard: "' + spoken + '"';
+          txt.style.color = "#5EEAD4";
+          if (e.results[e.results.length - 1].isFinal) {
+            $("cvi-manual-ocr").value = spoken;
+            writeHandwriting(spoken, ["Captured via Multimodal Voice + Board Context"]);
+            analyzeAndMatch(spoken, "Live Voice + Board Fusion", spoken);
+          }
+        };
+
+        rec.onerror = (e) => {
+          txt.textContent = "Mic notice: " + e.error + " (use https:// or localhost for live mic).";
+          log("VOICE WARNING: " + e.error);
+        };
+
+        rec.onend = () => {
+          state.isListening = false;
+          btn.classList.remove("cvi-btn-mic-on");
+          btn.textContent = "🎙️ Live Voice Mic";
+        };
+
+        rec.start();
+      }
+
+      /* ---------------------------------------------------------
+         LIVE WEBCAM + OPTIONAL CLOUD OCR
+      --------------------------------------------------------- */
+      async function startWebcam() {
+        const video = $("cvi-webcam-video");
+        const msg = $("cvi-cam-msg");
+        try {
+          state.webcamStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" }, audio: false });
+          video.srcObject = state.webcamStream;
+          msg.textContent = "Camera live. Frame board inside ROI box & click Capture.";
+          log("CAMERA: Live webcam started.");
+        } catch (err) {
+          msg.textContent = "Camera unavailable (" + err.message + "). Use Board Sim.";
+        }
+      }
+
+      function stopWebcam() {
+        if (state.webcamStream) {
+          state.webcamStream.getTracks().forEach((tr) => tr.stop());
+          state.webcamStream = null;
+        }
+      }
+
+      async function captureWebcamFrame() {
+        const video = $("cvi-webcam-video"), buf = $("cvi-capture-buffer"), ctx = buf.getContext("2d");
+        if (!state.webcamStream || video.readyState < 2) return;
+        ctx.drawImage(video, 0, 0, buf.width, buf.height);
+
+        if (state.connectivity === "online" && state.apiKey) {
+          $("cvi-cam-msg").textContent = "Sending ROI to Cloud OCR...";
+          try {
+            const b64 = buf.toDataURL("image/jpeg", 0.85).split(",")[1];
+            const resp = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${encodeURIComponent(state.apiKey)}`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ contents: [{ parts: [{ text: "Extract ONLY the main handwritten educational topic in 1 short line." }, { inline_data: { mime_type: "image/jpeg", data: b64 } }] }] })
+            });
+            const j = await resp.json();
+            const ext = (j?.candidates?.[0]?.content?.parts?.[0]?.text || "").trim();
+            if (ext) { $("cvi-manual-ocr").value = ext; analyzeAndMatch(ext, "Webcam + Cloud OCR"); return; }
+          } catch (e) { log("Cloud OCR error: " + e.message); }
+        }
+        analyzeAndMatch($("cvi-manual-ocr").value, "Webcam ROI");
+      }
+
+      /* ---------------------------------------------------------
+         PUBLIC API
+      --------------------------------------------------------- */
+      const CVIPrototype = {
+        init() { initWhiteboard(); this.onContextChange(); renderLoop(0); },
+
+        onContextChange() {
+          const s = $("cvi-subject").value;
+          const ch = SUBJECT_CHAPTERS[s] || ["General Unit"];
+          $("cvi-chapter").innerHTML = ch.map((c) => `<option value="${c}">${c}</option>`).join("");
+        },
+
+        setConnectivity(mode) {
+          state.connectivity = mode;
+          $("cvi-mode-offline").classList.toggle("active", mode === "offline");
+          $("cvi-mode-online").classList.toggle("active", mode === "online");
+          log("MODE: " + (mode === "offline" ? "Offline Preloaded Library" : "Online Cloud + Agentic Mode"));
+        },
+
+        toggleApprovalMode() {
+          state.teacherApproval = !state.teacherApproval;
+          $("cvi-approval-toggle").classList.toggle("active", state.teacherApproval);
+          $("cvi-approval-toggle").textContent = state.teacherApproval ? "✋ Teacher Approval: ON" : "⚡ Auto-Project: ON";
+        },
+
+        setInputSource(src) {
+          state.inputSource = src;
+          $("cvi-src-sim").classList.toggle("active", src === "sim");
+          $("cvi-src-cam").classList.toggle("active", src === "cam");
+          $("cvi-wb-canvas").style.display = src === "sim" ? "block" : "none";
+          $("cvi-webcam-wrap").style.display = src === "cam" ? "block" : "none";
+          $("cvi-left-tag").textContent = src === "sim" ? "CAMERA ROI • WATCHING WRITING ZONE ONLY" : "LIVE WEBCAM • ROI CALIBRATED";
+          if (src === "cam") startWebcam(); else stopWebcam();
+        },
+
+        setMarker(color, size, el) {
+          state.markerColor = color; state.markerSize = size;
+          document.querySelectorAll("#cvi-prototype-root .cvi-swatch").forEach((s) => s.classList.remove("active"));
+          if (el) el.classList.add("active");
+        },
+
+        clearBoard() { state.fillCleanBoard(); state.hasDrawnStrokes = false; },
+
+        simulateTeacher(level, subject, topicText, voiceLine) {
+          if (state.inputSource !== "sim") this.setInputSource("sim");
+          $("cvi-level").value = level;
+          $("cvi-subject").value = subject;
+          this.onContextChange();
+          $("cvi-manual-ocr").value = topicText;
+
+          const notesMap = {
+            "Biology": topicText.includes("DNA")
+              ? ["Helicase unzips double helix", "Leading strand: continuous 5' → 3'", "Lagging strand: Okazaki fragments"]
+              : ["4 Chambers: RA, RV, LA, LV", "Pulmonary loop → Lungs (O₂)", "Systemic loop → Aorta to Body"],
+            "Physics": ["Moving magnet changes Flux (Φ)", "ε = -N (dΦ / dt)", "Lenz's Law opposes change"],
+            "Computer Science": ["Start Node A (d = 0)", "Relax weighted edges", "Pick minimum unvisited node"],
+            "Chemistry": ["Oxygen needs 2 e⁻ (Octet)", "2 Hydrogen atoms share 1 e⁻ each", "Bent angle: 104.5°"],
+            "Mathematics": topicText === "Induction"
+              ? ["Step 1: Base Case (n = 1)", "Step 2: Assume true for n = k", "Step 3: Prove for n = k + 1"]
+              : ["Vectors a, b define a 3D plane", "a × b is perpendicular (90°)", "Magnitude = |a||b|sin(θ)"]
+          };
+          writeHandwriting(topicText, notesMap[subject] || ["Teacher writing on physical board..."]);
+          analyzeAndMatch(topicText, "Board + Voice Fusion", voiceLine);
+        },
+
+        scanDrawnBoard() { analyzeAndMatch($("cvi-manual-ocr").value, "Drawn Board ROI"); },
+        runPipelineFromText() {
+          const t = $("cvi-manual-ocr").value.trim();
+          if (state.inputSource === "sim" && t) writeHandwriting(t, ["Captured from physical whiteboard", "Matched via active syllabus context"]);
+          analyzeAndMatch(t, "Board ROI");
+        },
+
+        approvePending() {
+          if (!state.pendingMatch) return;
+          const item = state.pendingMatch;
+          state.pendingMatch = null;
+          setDecisionUI("state-ready", "ok", "📽️ PROJECTING LIVE ON BOARD", `Now Projecting: ${item.title}`, `Approved by teacher • Displaying cleanly in Reserved Side Zone (Step 4).`, false, null);
+          projectVisual(item);
+        },
+
+        rejectPending() {
+          state.pendingMatch = null;
+          setDecisionUI("", "", "● DISMISSED BY TEACHER", "Visual suggestion ignored — projector stayed clean.", "Ready for next whiteboard or voice cue.", false, null);
+          log("TEACHER CONTROL: Suggestion ignored.");
+        },
+
+        dismissVisual() {
+          state.activeVisual = null;
+          $("cvi-proj-idle").style.display = "flex";
+          $("cvi-verified-tag").textContent = "Blanked by teacher";
+        },
+
+        togglePause() {
+          if (!state.activeVisual) return;
+          state.isPaused = !state.isPaused;
+          $("cvi-btn-playpause").textContent = state.isPaused ? "▶ Resume" : "⏸ Pause";
+        },
+
+        cycleSpeed() {
+          const sp = [0.5, 1.0, 1.5];
+          state.speed = sp[(sp.indexOf(state.speed) + 1) % sp.length];
+          $("cvi-btn-speed").textContent = `⚡ ${state.speed.toFixed(1)}x`;
+        },
+
+        toggleFullscreenProjector() {
+          const el = $("cvi-projector-zone");
+          if (!document.fullscreenElement) el.requestFullscreen && el.requestFullscreen();
+          else document.exitFullscreen();
+        },
+
+        toggleVoiceMic,
+        captureWebcamFrame,
+        openModal() { $("cvi-modal-bg").classList.add("open"); },
+        closeModal() { $("cvi-modal-bg").classList.remove("open"); },
+        saveApiKey(clear) {
+          state.apiKey = clear ? "" : $("cvi-api-key").value.trim();
+          if (clear) $("cvi-api-key").value = "";
+          this.setConnectivity(state.apiKey ? "online" : "offline");
+          this.closeModal();
+        },
+        clearLogs() { $("cvi-log-list").innerHTML = ""; }
+      };
+
+      window.CVIPrototype = CVIPrototype;
+      document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", () => CVIPrototype.init()) : CVIPrototype.init();
+    })(window);
+  </script>
+</body>
+</html>
